@@ -1,0 +1,139 @@
+<%= form_for([:admin, @adopter]) do |f| %>
+  <div class="row">
+    <% if @adopter.errors.any? %>
+      <div class="alert alert-danger">
+        <strong><%= pluralize(@adopter.errors.count, "Error") %></strong> prohibieron a este adoptante guardar la información!
+        <ul>
+          <% @adopter.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :nombre, class: "req" %>
+        <%= f.text_field :nombre, { class: 'form-control' } %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :domicilio, class: "req" %>
+        <%= f.text_field :domicilio, { class: 'form-control' } %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :giro, class: "req" %>
+        <%= f.text_field :giro, { class: 'form-control' } %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :telefono, class: "req" %>
+        <%= f.text_field :telefono, { class: 'form-control' } %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :email, class: "req" %>
+        <%= f.text_field :email, { class: 'form-control' } %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :expectativas, "Expectativas del programa" %>
+        <%= f.text_field :expectativas, { class: 'form-control' } %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :user_id, "El usuario del adoptante" %>
+        <%= f.text_field :user_id, class: 'form-control', data: {autocomplete_source: User.includes(:roles).where("roles.id in (2,3)").references(:roles).map(&:username)}, :value => @adopter.user.present? ? @adopter.user.username : nil  %>
+        <p class="help-block">Seleccione la cuenta de usuario de este Adoptante</p>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :url, "Pagina web del Adoptante", class: "req" %>
+        <%= f.text_field :url, { class: 'form-control' } %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :logo %>
+        <%= f.file_field :logo, { class: 'form-control' } %>
+        <%= image_tag @adopter.logo_url(:thumb).to_s if @adopter.logo.present? %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :ife, "IFE" %>
+        <%= f.file_field :ife, { class: 'form-control' } %>
+        <%= @adopter.ife.file.filename if @adopter.ife.file %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :acta, "Acta Constitutiva" %>
+        <%= f.file_field :acta, { class: 'form-control' } %>
+        <%= @adopter.acta.file.filename if @adopter.acta.file %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :razon, "Razón Social de la institución" %>
+        <%= f.file_field :razon, { class: 'form-control' } %>
+        <%= @adopter.razon.file.filename if @adopter.razon.file %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :facebook_url, class: "req" %>
+        <%= f.text_field :facebook_url, { class: 'form-control' } %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :twitter_url, class: "req" %>
+        <%= f.text_field :twitter_url, { class: 'form-control' } %>
+      </div>
+    </div>
+  </div>
+  <%= f.fields_for :contacts do |builder| %>
+    <%= render 'contact_fields', f: builder %>
+  <% end %>
+  <%= link_to_add_fields "Agregar Contacto", f, :contacts%>
+  <div class="form-group text-center">
+    <%= f.submit (@adopter.new_record? ? "Crear Adoptante" : "Actualizar Adoptante"), { class: 'btn btn-primary' } %>
+  </div>
+<% end %>
+
+<%= content_for :footer do %>
+  <script>
+  jQuery(function() {
+    $('form').on('click', '.add_fields', function(event) {
+      var regexp, time;
+      time = new Date().getTime();
+      regexp = new RegExp($(this).data('id'), 'g');
+      $(this).before($(this).data('fields').replace(regexp, time));
+      return event.preventDefault();
+    });
+  });
+
+  </script>
+<% end %>

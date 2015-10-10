@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="j1Ag2L3KRrBuublt8yZQdbX2pK9f72Wp35eqtJ0On5U" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <%= favicon_link_tag 'favicon.ico' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%
+      # if user_signed_in?
+      #   @user_id = current_user.id
+      # else
+      #   @user_id = 'public'
+      # end
+    %>
+    <%= csrf_meta_tag %>
+    <%= yield(:head) %>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-55145534-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <div id="fb-root"></div>
+    <script>
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1456209777925611";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+      
+</script>
+    <script type="text/javascript" src="https://apis.google.com/js/platform.js">
+      {lang: 'es-419'}
+    </script>
+    <div class="sidebar-dropdown">
+      <%=link_to "Menu", "#"%>
+    </div>
+    <div class="sidebar">
+      <%= link_to image_tag("front/img/logo.png"), root_path, :class => 'sidebar-logo text-center' %>
+      <div class="sidebar-menu">
+        <ul class="nav navbar-nav">
+        <% if user_signed_in? %>
+        <!-- LOGGED IN -->
+          <%= render :partial => "partials/user_menu/administrador" %>
+        <!-- END LOGGED IN -->
+        <% else %>
+        <!-- NOT LOGGED IN -->
+          <li><a href="#login" data-toggle="modal" data-target="#registerModal"><i class="fa fa-user"></i><span class="menu-nav__label">Regístrate</span></a></li>
+          <li><a href="#register" data-toggle="modal" data-target="#loginModal"><i class="fa fa-gears"></i><span class="menu-nav__label">Login</span></a></li>
+        <!-- NOT LOGGED IN END -->
+        <% end %>
+          <li><a href="#contact" data-toggle="modal" data-target="#contactModal"><i class="fa fa-comments"></i><span class="menu-nav__label">Contáctanos</span></a></li>
+        </ul>
+      </div>
+      <%= yield(:sidebar) %>
+    </div>
+    <div class="content">
+      <%= yield %>
+
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <% end %>
+    </div>
+
+    <%= render :partial => 'partials/modals/contact'  %>
+    <%= render :partial => 'partials/modals/forget_password'  %>
+    <%= render :partial => 'partials/modals/login'  %>
+    <%= render :partial => 'partials/modals/register'  %>
+    <%= yield(:footer) %>
+  </body>
+</html>

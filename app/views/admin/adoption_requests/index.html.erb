@@ -1,0 +1,35 @@
+<section class="container clearfix main_section">
+  <div id="main_content_outer" class="clearfix">
+    <div id="main_content">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">Listado de solicitudes de adopcón</h4>
+        </div>
+        <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="40">
+        <thead>
+          <tr>
+              <th>Nombre Solicitante</th>
+              <th>Giro Solicitante</th>
+              <th>Espacio Solicitado</th>
+              <th class="text-center">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @adoption_requests.each do |request| %>
+            <tr>
+              <td><%= link_to request.adopter.display_name, edit_admin_adopter_path(request.adopter) if request.adopter%></td>
+              <td><%= request.adopter.display_title if request.adopter %></td>
+              <td><%= request.listing.name if request.listing%></td>
+              <td><%= request.display_status %></td>
+              <td class="text-center">
+                <%= link_to 'Aprovar', approve_admin_adoption_request_path(request), method: 'PUT', data: { confirm: '¿Está seguro de aprovar la solicitud?' }, :class=>"btn btn-primary" %>
+                <%= link_to 'Rechazar', reject_admin_adoption_request_path(request), method: 'PUT', data: { confirm: '¿Está seguro de rechazar la solicitud?' }, :class=>"btn btn-danger" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+</div>

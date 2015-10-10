@@ -1,0 +1,88 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require front/css/app
+ *= require front/css/vendor/bootstrap.min
+ *= require front/css/icons/elusive-webfont
+ *= require front/css/icons/font-awesome
+ *= require front/css/plugins/hint
+ *= require front/css/plugins/blueimp-gallery
+ *= require front/css/plugins/bootstrap-image-gallery
+ *= require front/css/plugins/nv.d3
+ *= require front/css/layout/layout
+ *= require front/css/skins/skin
+ *= require front/css/skins/skin
+ *= require front/css/layout/widgets_header
+ *= require front/css/skins/widgets_header
+ *= require front/css/layout/widgets_sidebar
+ *= require front/css/skins/widgets_sidebar
+ *= require front/css/layout/widgets_map
+ *= require front/css/skins/widgets_map
+ *= require front/css/layout/widget_listing
+ *= require front/css/skins/widget_listing
+ *= require front/css/layout/qa
+ *= require front/css/skins/qa
+ *= require front/css/layout/adoptar
+ *= require front/css/skins/adoptar
+ *= require front/css/widgets
+ *= require front/css/layout/directory
+ *= require front/css/skins/directory
+ *= require front/css/layout/documents
+ *= require front/css/skins/documents
+ *= require front/css/layout/report
+ *= require front/css/skins/report
+ *= require front/css/layout/providers
+ *= require front/css/skins/providers
+ */
+
+$experimental-support-for-opera : false;
+$experimental-support-for-khtml : false;
+
+.navbar-toggle {
+  border: 1px solid #fff;
+}
+.navbar-toggle .icon-bar {
+  background-color: #fff
+}
+
+@media screen and (max-width:768px){
+  .map-canvas {
+    height: 300px;
+  }
+  .map-options .btn {
+    padding: 6px 3px;
+  }
+  .navbar-collapse .navbar-nav > li {
+    float: none
+  }
+  .sidebar .navbar-nav > .dropdown,
+  .sidebar .sidebar-menu .navbar-nav > li > .dropdown-toggle
+  {
+    width: 120px !important;
+  }
+  .sidebar {
+    .navbar-nav .open .dropdown-menu {
+      position: absolute;
+      background-color: #fff
+    }
+  }
+}
+
+@media screen and (max-width:992px){
+  div.content {margin-left: 0}
+}
+
+.req:after{ 
+  content: "*";
+  font-size: 14px;
+  color: #cc0000;
+  padding-left: 4px;
+ }

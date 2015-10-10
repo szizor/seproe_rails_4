@@ -1,0 +1,41 @@
+<fieldset>
+  <legend>Datos de contacto del adoptante</legend>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <%= f.label :name, "Nombre" %>
+        <%= f.text_field :name, { class: 'form-control' } %>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <%= f.label :title, "Título del trabajo" %>
+        <%= f.text_field :title, { class: 'form-control' } %>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <%= f.label :phone, "Teléfono" %>
+        <%= f.text_field :phone, { class: 'form-control' } %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <%= f.label :cell, "Celular" %>
+        <%= f.text_field :cell, { class: 'form-control' } %>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <%= f.label :email, "Correo" %>
+        <%= f.text_field :email, { class: 'form-control' } %>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+      </div>
+    </div>
+  </div>
+</fieldset>

@@ -1,0 +1,112 @@
+<div id="tree-background"></div>
+<div class="sidebar-search">
+  <input type="text" id="searchInput" class="form-control search-txt" placeholder="Buscar Espacio Publico">
+</div>
+<div class="sidebar-list">
+  <div class="public-space__section" id="publicList">
+    <h4 class="public-space__header">
+      <a href="#featuredList" data-parent="#publicList">
+        <i class="glyphicon glyphicon-chevron-right"></i> Espacios públicos preferidos
+      </a>
+    </h4>
+    <ul id="featuredList" class="list-unstyled public-space__list" style="display: none">
+      <% i = 0 %>
+      <% @listings.each do |space| %>
+        <% if space.is_featured.present? %>
+          <li>
+            <a href="/<%= space.slug %>" title="<%= space.name %>"><i class="fa fa-map-marker"></i> <%= space.name %> <i class="fa fa-angle-right pull-right"></i></a>
+          </li>
+
+          <% i+= 1 %>
+        <% end %>
+
+      <% end %>
+
+      <% if i == 0 %>
+        <li>
+          <div class="alert alert-warning">
+            Lo sentimos, no pudimos encontrar ningún espacio público preferido!
+          </div>
+        </li>
+      <% end %>
+    </ul>
+    <h4 class="public-space__header">
+      <a href="#inProcessList" data-parent="#publicList">
+        <i class="glyphicon glyphicon-chevron-right"></i> Espacios públicos en proceso
+      </a>
+    </h4>
+    <ul id="inProcessList" class="list-unstyled public-space__list" style="display: none">
+      <% i = 0 %>
+      <% @listings.each do |space| %>
+        <% if ( space.is_featured.present? == false && space.listing_type.name == "En Proceso" ) %>
+          <li>
+            <a href="/<%= space.slug %>" title="<%= space.name %>"><i class="fa fa-map-marker"></i> <%= space.name %> <i class="fa fa-angle-right pull-right"></i></a>
+          </li>
+
+          <% i+= 1 %>
+        <% end %>
+
+      <% end %>
+
+      <% if i == 0 %>
+        <li>
+          <div class="alert alert-warning">
+            Ningún espacio público en proceso ha sido encontrado.
+          </div>
+        </li>
+      <% end %>
+    </ul>
+    <h4 class="public-space__header">
+      <a href="#AdoptedList" data-parent="#publicList">
+        <i class="glyphicon glyphicon-chevron-right"></i> Espacios públicos adoptados
+      </a>
+    </h4>
+    <ul id="AdoptedList" class="list-unstyled public-space__list" style="display: none">
+      <% i = 0 %>
+      <% @listings.each do |space| %>
+        <% if ( space.is_featured.present? == false && space.listing_type.name == "Adoptado" ) %>
+          <li>
+            <a href="/<%= space.slug %>" title="<%= space.name %>"><i class="fa fa-map-marker"></i> <%= space.name %> <i class="fa fa-angle-right pull-right"></i></a>
+          </li>
+
+          <% i+= 1 %>
+        <% end %>
+
+      <% end %>
+
+      <% if i == 0 %>
+        <li>
+          <div class="alert alert-warning">
+            Ningún espacio público adoptado ha sido encontrado.
+          </div>
+        </li>
+      <% end %>
+    </ul>
+    <h4 class="public-space__header">
+      <a href="#freeList" data-parent="#publicList">
+        <i class="glyphicon glyphicon-chevron-right"></i> Espacios públicos libres
+      </a>
+    </h4>
+    <ul id="freeList" class="list-unstyled public-space__list" style="display: none">
+      <% i = 0 %>
+      <% @listings.each do |space| %>
+        <% if space.is_featured.present? == false && ( space.listing_type.name == "Libre" || space.listing_type.name == "En Proceso" ) %>
+          <li>
+            <a href="/<%= space.slug %>" title="<%= space.name %>"><i class="fa fa-map-marker"></i> <%= space.name %> <i class="fa fa-angle-right pull-right"></i></a>
+          </li>
+
+          <% i+= 1 %>
+        <% end %>
+
+      <% end %>
+
+      <% if i == 0 %>
+        <li>
+          <div class="alert alert-warning">
+            Ninguno espacios públicos libre ha sido encontrado!
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

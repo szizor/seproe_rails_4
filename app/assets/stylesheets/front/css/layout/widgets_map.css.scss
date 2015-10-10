@@ -1,0 +1,131 @@
+.map-holder {
+	position: relative;
+}
+.map-canvas {
+	height: 384px;
+	  -webkit-transition: all 0.3s ease-out;
+     -moz-transition: all 0.3s ease-out;
+       -o-transition: all 0.3s ease-out;
+          transition: all 0.3s ease-out;
+	&.minimized {
+		height: 150px !important
+	}
+}
+.map-options {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+.map-options .btn-group {
+	background-color: rgba(27,33,41,.9);
+	-webkit-border-radius: 5px 5px 0 0;
+          border-radius: 5px 5px 0 0;
+}
+.map-options .btn-group .btn {
+	color: #fff;
+	font-size: 12px;
+	font-style: normal;
+}
+.map-options .btn-group .glyphicon {
+	font-size: 18px;
+	vertical-align: middle;
+	margin-top: -5px;
+	margin-right: 5px;
+}
+
+.btn-adopted .glyphicon {
+	color: #00BACC;
+}
+.btn-free .glyphicon {
+	color: #4DAF7C;
+}
+
+.btn-pending .glyphicon {
+	color: #EDCD5B;
+}
+.btn-featured .glyphicon {
+	color: #ffffff;
+}
+.map-options .btn.active {
+	text-decoration: underline;
+}
+.btn-transparent {
+ background-color: transparent;
+}
+.map-maximizer {
+	background-color: #29333f;
+}
+.btn-transparent span {
+	color : #8D8D8D;
+	text-shadow: 1px 1px 1px #5d5d5d;
+	margin-bottom: 2px;
+	padding : 0 5px;
+}
+
+.content-listing {
+
+}
+.infobox-wrapper {
+	display: none;
+}
+.info-content {
+	position: relative;
+	width: 330px;
+}
+.info-data {
+	padding: 15px 15px 50px;
+}
+.info-data_cover {
+	float: left;
+	margin-right: 20px !important;
+	border-width: 1px;
+}
+.info-data__name {
+	overflow: hidden;
+	display: block;
+	font-family: Flat-UI-Icons;
+}
+.info-data__address {
+
+}
+.info-data__address_street,
+.info-data__address_gps {
+	display: block;
+}
+.info-data__address_locality:after,
+.info-data__address_region:after {
+	content: ', ';
+}
+.info-data__address_street {
+
+}
+.info-data__address_locality {
+
+}
+.info-data__address_region {
+
+}
+.info-data__action {
+	position: absolute;
+	bottom: 10px;
+	right: 0;
+}
+.info-adopter {
+	// position: absolute;
+	// width: 340px;
+	// bottom: 10px;
+	// left: 0;
+	// padding: 4px 23px;
+	// margin-left: -5px;
+	position: relative;
+	margin-top: 20px;
+}
+.info-adoptor__adopter_company{
+	font-family: Flat-UI-Icons;
+	font-size: 15px;
+	color: #733317;
+	font-weight: bold;
+}
+.info-adopter__adoptor {}
+.info-adopter__adopter_facebook {}
+.info-adopter__adopter_facebook {}

@@ -1,0 +1,102 @@
+<%= form_for([:admin, @event]) do |f| %>
+  <div class="row">
+    <% if @event.errors.any? %>
+      <div class="alert alert-danger">
+        <strong><%= pluralize(@event.errors.count, "Error") %></strong> prohibieron a este evento guardar la información!
+        <ul>
+          <% @event.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label class="heading_a req">Nombre del evento</label>
+        <%= f.text_field :name, :class => 'form-control'%>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :start_date, "Fecha de inicio" %><br />
+        <%= f.datetime_select :start_date %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :end_date, "Fecha de finalización" %><br />
+        <%= f.datetime_select :end_date %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label class="heading_a">Organizado por: <small>(Selecciona un Adoptante en caso de que el evento sea organizado por un adoptante)</small></label>
+        <%= f.select(:user_id, Adopter.all.collect {|p| [ p.nombre, p.id ] }, {}, { :class => 'form-control' }) %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label class="heading_a">Ubicación (Espacio Público)</label>
+        <%= f.select(:listing_id, Listing.all.collect {|p| [ p.name, p.id ] }, {}, { :class => 'form-control' }) %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="fileupload fileupload-new" data-provides="fileupload">
+        <div class="fileupload-new img-thumbnail" style="width: 178px; height: 120px;">
+          <% if @event.image.present? %>
+            <%= image_tag @event.image.url %>
+          <% else %>
+            <img src="/assets/admin/no_img_180.png" alt="">
+          <% end %>
+        </div>
+        <div class="fileupload-preview fileupload-exists img-thumbnail" style="width: 178px; height: 120px"></div>
+        <div>
+          <span class="btn btn-default btn-file">
+          <%= f.label :image, "Subir imagen del Evento" %>
+          <%= f.file_field :image %>
+          <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Eliminar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <%= f.label :description, "Descripción", class: "req" %>
+        <%= f.text_area :description, :class => 'form-control' %>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <%= f.submit :class => 'btn btn-primary' %>
+  </div>
+<% end %>
+<%= content_for :footer do %>
+  <script type="text/javascript">
+  $('#event_user_id').select2({
+      allowClear: true,
+      placeholder: "Select..."
+    });
+  $('#event_listing_id').select2({
+      allowClear: true,
+      placeholder: "Select..."
+    });
+
+  //* remove default form-controll class
+  setTimeout(function() {
+    $('.select2-container').each(function() {
+      $(this).removeClass('form-control')
+    })
+  })
+  </script>
+
+
+<% end %>

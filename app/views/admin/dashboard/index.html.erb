@@ -1,0 +1,258 @@
+<%
+	allSpacesCount = @listings.count;
+	adoptedSpacesCount = @listings.find_all { |l| l.listing_type_id === 3 }.count;
+	freeSpacesCount = @listings.find_all { |l| l.listing_type_id === 1 }.count;
+	inprocessSpacesCount = @listings.find_all { |l| l.listing_type_id === 2 }.count;
+%>
+<script>
+var allListings = <%= @listings.to_json.html_safe %>,
+	solvedReportsData = [{
+		key: "Resuelto",
+		color: "#0892cd",
+		values: [
+			<% @solved_reports.each do |report| %>
+        	{
+        		x: new Date('<%= report.date.strftime("%Y/%m") %>'),
+        		y: <%= report.count %>
+        	},
+        	<% end %>
+		]
+	}];
+var monthlyAdoptionData = [
+    {
+        key: "Adoptado",
+        color: "#7baf42",
+        values: [
+        	<% @data_adopted.each do |space| %>
+        	{
+        		x: new Date('<%= space.date.strftime("%Y/%m") %>'),
+        		y: <%= space.count %>
+        	},
+        	<% end %>
+        ]
+    },
+    {
+        key: "Libre",
+        color: "#0892cd",
+        values: [
+        	<% @data_free.each do |space| %>
+        	{
+        		x: new Date('<%= space.date.strftime("%Y/%m") %>'),
+        		y: <%= space.count %>
+        	},
+        	<% end %>
+        ]
+    },
+    {
+        key: "En processo",
+        color: "#efa91f",
+        values: [
+        	<% @data_inprocess.each do |space| %>
+        	{
+        		x: new Date('<%= space.date.strftime("%Y/%m") %>'),
+        		y: <%= space.count %>
+        	},
+        	<% end %>
+        ]
+    }
+];
+var open_questions = [<%= @open_questions.map{|month, records| "[new Date('#{records.first.created_at.beginning_of_month.strftime('%d/%m/%Y')}').getTime(), #{records.count}]" }.join(',').html_safe %>]
+var closed_questions = [<%= @closed_questions.map{|month, records| "[new Date('#{records.first.created_at.beginning_of_month.strftime('%d/%m/%Y')}').getTime(), #{records.count}]" }.join(',').html_safe %>]
+
+var money_graph = [
+  {
+    key: "Inversion Mensual",
+    values: [
+    <% @money_js.each do |money| %>
+    	{
+        "x" : new Date("<%= money.date.strftime("%Y/%m/%d") %>") ,
+        "y" : <%= money.total %>
+      },
+     <% end %>
+    ]
+  }
+]
+
+var event_graph = [
+  {
+    key: "Eventos Mensual",
+    values: [
+    <% @events_js.each do |event| %>
+    	{
+        "x" : new Date("<%= event.date.strftime("%Y/%m/%d") %>") ,
+        "y" : <%= event.count %>
+      },
+     <% end %>
+    ]
+  }
+]
+
+var questions_graph = [
+  {
+    key: "Eventos Mensual",
+    values: [
+    <% @questions_js.each do |question| %>
+    	{
+        "x" : new Date("<%= question.date.strftime("%Y/%m/%d") %>") ,
+        "y" : <%= question.count %>
+      },
+     <% end %>
+    ]
+  }
+]
+</script>
+<%# title "Tablero de control" %>
+<section class="container clearfix main_section">
+	<div id="main_content_outer" class="clearfix">
+		<div id="main_content">
+
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title text-center">Efectividad en la adopción de espacios públicos</h4>
+						</div>
+						<div class="panel-body">
+							<div class="graph__effective-adoption" data-adopted="<%= adoptedSpacesCount.to_f %>" data-total="<%= allSpacesCount.to_f %>">
+								<div class="graph_val text-center">
+									<h4><%= adoptedSpacesCount > 0 ? ((adoptedSpacesCount.to_f/allSpacesCount.to_f) * 100).ceil : 0 %> %</h4>
+								</div>
+								<svg></svg>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title text-center">Estadísticas de los espacios públicos</h4>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="box_stat box_ico">
+										<span class="stat_ico stat_ico_1"><i class="li_location"></i></span>
+										<h4><%= @listings.count %></h4>
+										<small>Todos Los Espacios Públicos</small>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="box_stat box_ico">
+										<span class="stat_ico stat_ico_2"><i class="li_location"></i></span>
+										<h4><%= @listings.find_all { |l| l.listing_type_id === 3 }.count %></h4>
+										<small>Adoptados</small>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="box_stat box_ico">
+										<span class="stat_ico stat_ico_3"><i class="li_location"></i></span>
+										<h4><%= @listings.find_all { |l| l.listing_type_id === 1 }.count %></h4>
+										<small>Libre</small>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="box_stat box_ico">
+										<span class="stat_ico stat_ico_4"><i class="li_location"></i></span>
+										<h4><%= @listings.find_all { |l| l.listing_type_id === 2 }.count %></h4>
+										<small>En Proceso</small>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">Indicador de reportes resueltos mensual</h4>
+						</div>
+						<div class="panel-body">
+							<div class="chart_wrapper">
+								<div id="monthlySolvedReports">
+									<svg style="height: 350px"></svg>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">Indicador de adopción de espacios mensual</h4>
+						</div>
+						<div class="panel-body">
+							<div class="chart_wrapper">
+								<div id="monthlyAdoption">
+									<svg style="height: 350px"></svg>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">Indicador de eventos realizadas en los espacios públicos mensuales</h4>
+						</div>
+						<div class="panel-body">
+							<div class="chart_wrapper">
+								<div id="eventsMonthly">
+									<div class="total text-center">
+										<h4></h4>
+									</div>
+									<svg style="height: 250px"></svg>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">Indicador de preguntas resueltas por el ayuntamiento mensuales</h4>
+						</div>
+						<div class="panel-body">
+							<div class="chart_wrapper">
+								<div id="questionsMonthly">
+									<div class="total text-center">
+										<h4></h4>
+									</div>
+									<svg style="height: 250px"></svg>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+<!--[[ page specific plugins ]]-->
+	<%= javascript_include_tag :admin_dashboard %>
+
+
+	<!--[if lte IE 9]>
+		<script src="js/ie/jquery.placeholder.js"></script>
+		<script>
+			$(function() {
+				$('input, textarea').placeholder();
+			});
+		</script>
+	<![endif]-->

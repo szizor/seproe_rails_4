@@ -1,0 +1,185 @@
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script type='text/javascript'>
+  window.longitude = <%= @listing.longitude || -103.33541315000002 %>;
+  window.latitude = <%= @listing.latitude || 20.673808110738598 %>;
+</script>
+
+<%= form_for([:admin, @listing]) do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div id="map-canvas" style="height:400px"></div>
+    </div>
+  </div>
+  <div class="row">
+    <% if @listing.errors.any? %>
+      <div class="alert alert-danger">
+        <strong><%= pluralize(@listing.errors.count, "Error") %></strong> prohibieron a este listado  guardar la información!
+        <ul>
+          <% @listing.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+  <div class="row">
+    <!-- START PUBLIC SPACE BASIC -->
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">Datos Básicos</h4>
+        </div>
+
+        <div class="panel-body">
+
+          <div class="form_sep">
+            <%= f.label :name, { class: 'req' } do %>
+              Nombre
+            <% end %>
+            <%= f.text_field :name, { class: 'form-control parsley-validated', 'data-required' => 'true' } %>
+          </div>
+
+          <div class="form_sep">
+            <%= f.label :description, "Descripción" %>
+            <%= f.text_area :description, :class => 'form-control col-sm-12', :rows => 6 %>
+          </div>
+
+          <div class="form_sep">
+            <%= f.label :category, "Categoría", { class: 'req' } %>
+            <%= f.select :category, ['Camellones', 'Fuentes', 'Glorietas', 'Jardines', 'Parques', 'Plazas', 'Triángulos', '
+              Otro'], {:include_blank => "-- Selecciona"}, {:class => "form-control"} %>
+          </div>
+
+          <div class="form_sep">
+            <%= f.label :dimensions, "Dimensión" %>
+            <%= f.text_field :dimensions, { class: 'form-control' } %>
+            <span class="help-block">Metro Cuadrado "Solo Numero"</span>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form_sep">
+                <%= f.label :is_featured, "Marcar como preferido?" %>
+                <label for="reg_chbox_a" class="checkbox-inline">
+                  <%= f.check_box :is_featured %> Si/No
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form_sep">
+                <%= f.label :listing_type_id, "Estado" %>
+                <%= f.select("listing_type_id", ListingType.all.collect {|p| [ p.name, p.id ] }, {}, { :class => 'form-control' }) %>
+              </div>
+            </div>
+          </div>
+
+          <div class="form_sep">
+            <%= f.label :cover_image, "Imagen de la cubierta" %>
+            <div class="sepH_c pull-left">
+              <div data-provides="fileupload" class="fileupload fileupload-new">
+                <div style="width: 50px; height: 50px;" class="fileupload-new img-thumbnail">
+                  <%= image_tag @listing.cover_image_url(:thumb) if @listing.cover_image.present? %>
+                </div>
+              </div>
+            </div>
+            <%= f.file_field :cover_image %>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- START PUBLIC SPACE GALLERY -->
+    <div class="col-sm-6">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">Ubicación</h4>
+        </div>
+        <div class="panel-body">
+          <div class="form_sep">
+            <%= f.label :location, "Dirección", class: 'req' %>
+            <div class="col-sm-9"><%= f.text_field :location, class: 'form-control' %></div>
+            <div class="col-sm-2"><button id="geocode_address" class="btn btn-success">Buscar</button></div>
+          </div>
+
+          <div class="form_sep">
+            <%= f.label :subtitle, "Entre las Calles:" %>
+            <%= f.text_field :subtitle, class: 'form-control' %>
+          </div>
+
+          <div class="form_sep">
+            <%= f.label :postal, "Codigo Postal" %>
+            <%= f.text_field :postal, class: 'form-control' %>
+          </div>
+
+          <div class="form_sep">
+            <%= f.label :latitude, "Latitud" %>
+            <%= f.text_field :latitude, { class: 'form-control'} %>
+          </div>
+          <div class="form_sep">
+            <%= f.label :longitude, "Longitud" %>
+            <%= f.text_field :longitude, { class: 'form-control'} %>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">Adoptante</h4>
+        </div>
+        <div class="panel-body">
+          <div class="form_sep">
+            <%= f.select(:adopter_id, Adopter.all.collect {|p| [ p.nombre, p.id ] }, {:include_blank => 'Selecciona...'}, { :class => 'form-control' }) %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 text-center">
+      <%= f.submit :class => 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>
+
+<%= content_for :footer do %>
+
+  <%= javascript "admin/gmap" %>
+
+
+        <script type="text/javascript">
+        $('#listing_adopter_name').select2({
+            allowClear: true,
+            placeholder: "Select..."
+          });
+
+        $("form").on("click", "#geocode_address", function handleGeocodeClick(event) {
+          var requestConfig = {
+            url : "/admin/listings/geocode",
+            data : {
+              address : $("#listing_location").val()
+            },
+            success : function geocodeSuccessCallback(data) {
+              window.longitude = data.lng;
+              window.latitude  = data.lat;
+              $("#listing_latitude").val(data.lat);
+              $("#listing_longitude").val(data.lng);
+              loadPin();
+            }
+          };
+          $.ajax(requestConfig);
+          event.preventDefault();
+          return false;
+        });
+
+        //* remove default form-controll class
+        setTimeout(function() {
+          $('.select2-container').each(function() {
+            $(this).removeClass('form-control')
+          })
+        })
+        </script>
+
+
+<% end %>

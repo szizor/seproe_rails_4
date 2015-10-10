@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for?(:title) ? yield(:title) : "SEPROE" %></title>
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+
+    <!-- custom fonts -->
+    <%= stylesheet_link_tag "admin_area" %>
+    <%= javascript_include_tag :admin_area %>
+    <%= csrf_meta_tag %>
+    <%= yield(:head) %>
+  </head>
+  <body class="sidebar_hidden side_fixed side_fixed_open full_width">
+    <div id="wrapper_all">
+      <header id="top_header">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-6 col-sm-2">
+              <a href="/" class="logo_main" title="Regresar a la pagina de inicio">Inicio</a>
+            </div>
+            <div class="col-sm-push-4 col-sm-3 text-right hidden-xs">
+              <div class="notification_dropdown dropdown hide">
+                <a href="#" class="notification_icon dropdown-toggle" data-toggle="dropdown">
+                  <span class="label label-danger">8</span>
+                  <i class="icon-comment-alt icon-2x"></i>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <div class="dropdown_heading">Comments</div>
+                    <div class="dropdown_content">
+                      <ul class="dropdown_items">
+                        <li>
+                          <h3><span class="small_info">12:43</span><a href="#">Lorem ipsum dolor&hellip;</a></h3>
+                          <p>Lorem ipsum dolor sit amet&hellip;</p>
+                        </li>
+                        <li>
+                          <h3><span class="small_info">Today</span><a href="#">Lorem ipsum dolor&hellip;</a></h3>
+                          <p>Lorem ipsum dolor sit amet&hellip;</p>
+                        </li>
+                        <li>
+                          <h3><span class="small_info">14 Aug</span><a href="#">Lorem ipsum dolor&hellip;</a></h3>
+                          <p>Lorem ipsum dolor sit amet&hellip;</p>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="dropdown_footer"><a href="#" class="btn btn-sm btn-default">Show all</a></div>
+                  </li>
+                </ul>
+              </div>
+              <div class="notification_separator"></div>
+              <div class="notification_dropdown dropdown hide">
+                <a href="#" class="notification_icon dropdown-toggle" data-toggle="dropdown">
+                  <span class="label label-danger">12</span>
+                  <i class="icon-envelope-alt icon-2x"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-wide">
+                  <li>
+                    <div class="dropdown_heading">Messages</div>
+                    <div class="dropdown_content">
+                      <ul class="dropdown_items">
+                        <li>
+                          <h3><a href="#">Lorem ipsum dolor sit amet</a></h3>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                          <p class="large_info">Sean Walter, 24.05.2014</p>
+                          <i class="icon-exclamation-sign indicator"></i>
+                        </li>
+                        <li>
+                          <h3><a href="#">Lorem ipsum dolor&hellip;</a></h3>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi aliquam assumenda&hellip;</p>
+                          <p class="large_info">Sean Walter, 24.05.2014</p>
+                        </li>
+                        <li>
+                          <h3><a href="#">Lorem ipsum dolor&hellip;</a></h3>
+                          <p>Lorem ipsum dolor sit amet, consectetur&hellip;</p>
+                          <p class="large_info">Sean Walter, 24.05.2014</p>
+                          <i class="icon-exclamation-sign indicator"></i>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="dropdown_footer">
+                      <a href="#" class="btn btn-sm btn-default">Show all</a>
+                      <div class="pull-right dropdown_actions">
+                        <a href="#"><i class="icon-refresh"></i></a>
+                        <a href="#"><i class="icon-cog"></i></a>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-push-4 col-sm-3 hide">
+              <div class="pull-right dropdown">
+                <a href="#" class="user_info dropdown-toggle" title="Jonathan Hay" data-toggle="dropdown">
+                  <img src="/assets/admin/user_avatar.png" alt="">
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="user_profile.html">Profile</a></li>
+                  <li><a href="javascript:void(0)">Another action</a></li>
+                  <li><%= link_to "Log out", destroy_user_session_path %></li>
+                </ul>
+              </div>
+            </div>
+            <!-- <div class="col-xs-12 col-sm-pull-6 col-sm-4">
+              <form class="main_search">
+                <input type="text" id="search_query" name="search_query" class="typeahead form-control">
+                <button type="submit" class="btn btn-primary btn-xs"><i class="icon-search icon-white"></i></button>
+              </form>
+            </div> -->
+          </div>
+        </div>
+      </header>
+      <section id="breadcrumbs">
+        <div class="container">
+          <ul>
+            <li><a href="#">Estadísticas</a></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="container clearfix main_section">
+        <div id="main_content_outer" class="clearfix">
+          <div id="main_content">
+
+            <!-- main content -->
+            <div class="row">
+              <div class="col-sm-12">
+                <% flash.each do |name, msg| %>
+                <%= content_tag :div, msg, :id => "flash_#{name}" %>
+                <% end %>
+                <%#= content_tag :h1, yield(:title) if show_title? %>
+                <%= yield %>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+      <div id="footer_space"></div>
+    </div>
+    <nav id="side_fixed_nav">
+      <div class="slim_scroll">
+        <div class="side_nav_actions">
+          <a href="javascript:void(0)" id="side_fixed_nav_toggle"><span class="icon-align-justify"></span></a>
+          <div id="toogle_nav_visible" class="make-switch switch-mini" data-on="success" data-on-label="<i class='icon-lock'></i>" data-off-label="<i class='icon-unlock-alt'></i>">
+            <input id="nav_visible_input" type="checkbox">
+          </div>
+        </div>
+        <ul id="text_nav_side_fixed">
+          <li>
+            <%= link_to admin_root_path do %>
+            <span class="icon-home"></span>Tablero de control
+            <% end %>
+          </li>
+          <li>
+            <a href="javascript:void(0)"><span class="icon-user"></span>Usuarios</a>
+            <ul>
+              <li><%= link_to "Todos los Usuarios", admin_users_path %></li>
+              <li><%= link_to "Crear un Usuario", new_admin_user_path %></li>
+            </ul>
+          </li>
+          <li>
+            <a href="javascript:void(0)"><span class="icon-list-ul"></span>Espacios Públicos</a>
+            <ul>
+              <li><%= link_to "Todos espacios públicos", admin_listings_path %></li>
+              <li><%= link_to "Crear un Espacio Público", new_admin_listing_path %></li>
+              <li></li>
+            </ul>
+          </li>
+          <li>
+            <a href="javascript:void(0)"><span class="icon-group"></span>Adoptantes</a>
+            <ul>
+              <li><%= link_to "Listado de los Adoptantes", admin_adopters_path %></li>
+              <li><%= link_to "Crear un Adoptante", new_admin_adopter_path %></li>
+              <li><%= link_to "Solicitudes de Adopcion", admin_adoption_requests_path %></li>
+              <li></li>
+            </ul>
+          </li>
+          <li>
+            <a href="javascript:void(0)"><span class="icon-calendar"></span>Eventos</a>
+            <ul>
+              <li><%= link_to "Listado de los Eventos", admin_events_path %></li>
+              <li><%= link_to "Crear un Evento", new_admin_event_path %></li>
+              <li></li>
+            </ul>
+          </li>
+          <li>
+            <a href="javascript:void(0)"><span class="icon-calendar"></span>Preguntas</a>
+            <ul>
+              <li><%= link_to "Listado de las Preguntas", admin_questions_path %></li>
+            </ul>
+          </li>
+          <li>
+            <a href="javascript:void(0)"><span class="icon-calendar"></span>Documentos</a>
+            <ul>
+              <li><%= link_to "Listado de los Documentos", admin_documents_path %></li>
+            </ul>
+          </li>
+          <li>
+            <a href="javascript:void(0)"><span class="icon-calendar"></span>Reportes</a>
+            <ul>
+              <li><%= link_to "Listado de los reportes", admin_reports_path %></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <%= yield(:footer) %>
+  </body>
+</html>

@@ -1,0 +1,103 @@
+  <div class="container">
+
+  <div style="margin-bottom: 25px;">
+    <% if @question.approved %>
+      <div class="btn btn-lg btn-success">
+        Aprovada
+      </div>
+    <% else %>
+      <div id="approve-question" class="btn btn-lg btn-primary">
+        Aprovar la pregunta
+      </div>
+    <% end -%>
+  </div>
+
+  <div class="panel panel-default" style="margin-bottom: 25px;">
+    <div class="panel-heading">
+      <h4 class="panel-title"><%= @question.title%></h4>
+    </div>
+    <div class="panel-body">
+      <%= @question.body %>
+    </div>
+  </div>
+
+  <% @question.responses.each do |response| %>
+    <% if response.user && response.user.roles.first.name == 'Administrador' %>
+      <div class="alert alert-info">
+        <p>
+          <strong>Respuesta del Administrador: </strong>
+        </p>
+        <p><%= response.content %></p>
+      </div>
+    <% else %>
+      <div class="alert alert-warning">
+        <p>
+          <strong>Respuesta del Ciudadano: </strong>
+        </p>
+        <p><%= response.content %></p>
+        <% if response.approved %>
+          <div class="btn btn-lg btn-success">
+            Aprovada
+          </div>
+        <% else %>
+          <div data-key="<%= response.id %>" class="btn btn-lg btn-primary approve-response">
+            Aprovar la respuesta
+          </div>
+        <% end -%>
+      </div>
+    <% end %>
+  <% end %>
+  <%= form_for @response do |f| %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Contestar la Pregunta</h3>
+      </div>
+      <div class="panel-body">
+        <%= f.text_area :content, { class: 'form-control', rows: 3, required: "required" } %>
+        <%= f.hidden_field :user_id, :value => current_user.id %>
+        <%= f.hidden_field :question_id, :value => @question.id %>
+      </div>
+      <div class="panel-footer text-center">
+        <%= f.submit "Contestar la Pregunta", :class => 'btn btn-lg btn-primary'  %>
+      </div>
+    </div>
+
+  <% end %>
+</div>
+<script type="text/javascript">
+  $(document).ready(function () {
+    var approveQuestion = $("#approve-question"),
+        approveResponse = $(".approve-response");
+
+    approveQuestion.bind('click', function () {
+      $.ajax({
+        url : "/admin/questions/" + <%= @question.id %> + "/approve",
+        method : 'PUT',
+        success : function (data) {
+          if (data.approved) {
+            approveQuestion.removeClass("btn-primary").addClass("btn-success").html("Aprovada");
+          }
+        }
+      })
+    });
+
+    approveResponse.bind("click", function() {
+      var button = $(this),
+          id = button.data('key');
+
+      if (!confirm("¿Esta seguro de eliminar esta respuesta?")) {
+        return;
+      }
+      
+      $.ajax({
+        url : "/admin/responses/" + id + "/approve",
+        method: 'PUT',
+        success : function (data) {
+          if (data.approved) {
+            button.removeClass("btn-primary").addClass("btn-success").html("Aprovada");
+          }
+        }
+      })
+    });
+  })
+</script>

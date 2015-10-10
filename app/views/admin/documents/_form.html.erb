@@ -1,0 +1,32 @@
+<%= form_for [:admin, @document], :html => {:multipart => true} do |f| %>
+  <div class="row">
+    <% if @document.errors.any? %>
+      <div class="alert alert-danger">
+        <strong><%= pluralize(@document.errors.count, "Error") %></strong>
+        <ul>
+          <% @document.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :title, "Titulo"%>
+        <%= f.text_field :title, { class: 'form-control' } %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :file, "Documento" %>
+        <%= f.file_field :file, { class: 'form-control' } %>
+        <%= @document.file.file.filename if @document.file.file %>
+      </div>
+    </div>
+  </div>
+  <div class="form-group text-center">
+    <%= f.submit :class => 'btn btn-primary' %>
+  </div>
+<% end %>

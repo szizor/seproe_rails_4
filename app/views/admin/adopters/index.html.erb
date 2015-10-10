@@ -1,0 +1,51 @@
+<section class="container clearfix main_section">
+  <div id="main_content_outer" class="clearfix">
+    <div id="main_content">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">Listado de los adoptantes</h4>
+        </div>
+        <div class="panel_controls">
+          <div class="row">
+            <div class="col-sm-8">
+              <label for="table_search">Search:</label>
+              <input type="text" id="table_search" name="nombre" class="form-control" placeholder="buscar por Nombre o Giro o Tel o Correo">
+            </div>
+            <div class="col-sm-4 col-xs-6 ">
+              <label>&nbsp;</label>
+              <button class="btn btn-default btn-sm" id="clear-filter">Limpiar filtro</button>
+              <%= link_to 'Nuevo Adoptante', new_admin_adopter_path, :class=>"btn btn-primary btn-sm" %>
+            </div>
+          </div>
+        </div>
+        <table id="resp_table" class="table toggle-square pretty" data-filter="#table_search" data-page-size="40">
+        <thead>
+          <tr>
+              <th><%= adopert_sortable "Nombre" %></th>
+              <th>Empresa</th>
+              <th>Giro</th>
+              <th>Telefono</th>
+              <th>Email</th>
+              <th class="text-center">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @adopters.each do |adopter| %>
+            <tr>
+              <td class="col-md-2"><%= adopter.display_name %></td>
+              <td class="col-md-2"><%= adopter.nombre %></td>
+              <td class="col-md-2"><%= adopter.display_title %></td>
+              <td class="col-md-2"><%= adopter.display_phone %></td>
+              <td class="col-md-2"><%= adopter.display_email %></td>
+              <td class="text-center">
+                <%= link_to 'Edit', edit_admin_adopter_path(adopter), :class=>"btn btn-primary" %>
+                <%= link_to 'Destroy', [:admin, adopter], method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-danger" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+</div>

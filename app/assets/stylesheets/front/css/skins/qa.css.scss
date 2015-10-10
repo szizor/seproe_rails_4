@@ -1,0 +1,30 @@
+.qa__listings-item {
+	background-color: #fff;
+	border-style: solid;
+	border-color: rgba(0, 0, 0, 0.15);
+	border-radius: 3px;
+}
+.qa__listings-answer {
+	background-color: rgba(0, 0, 0, 0.1);
+	border-color: rgba(0, 0, 0, 0.15);
+}
+.qa__listings-answer-admin {
+	background-color: #D9EDF7;
+	border-color: #BCE8F1;
+}
+.qa__listings-item .entry-title {
+	font-size: 16px;
+	color: #666;
+	font-weight: bold;
+	line-height: 29px;
+}
+.qa__listings-item .entry-content {
+	font-size: 13px;
+}
+.qa__listings-item .entry-meta {
+	font-size: 12px;
+}
+.qa__listings-item .author .fn {
+	text-transform: capitalize;
+	font-weight: bold;
+}

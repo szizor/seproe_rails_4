@@ -1,0 +1,40 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed);
+body {
+	background-color: #ECF0F1;
+}
+a {
+	color: #E5626C;
+	text-decoration: none;
+}
+a:hover, a:focus {
+	color: #cc5861;
+}
+
+@media (max-width: 767px) {
+	.sidebar-dropdown {
+		display: block;
+	}
+	.sidebar {
+		float: none;
+		width: 100%;
+		display: none;
+		position: static;
+		box-shadow: 0 0 0 0 transparent;
+	}
+	.sidebar .navbar-nav {
+		margin: 0;
+	}
+	.sidebar .navbar-nav > li {
+		width: calc(100%/3);
+	}
+	.sidebar .navbar-nav > li > a {
+		display: block;
+		width: 100%;
+	}
+	.content {
+		margin: 0;
+	}
+}
+@media (max-width: 991px) {
+
+}

@@ -1,0 +1,60 @@
+<section class="container clearfix main_section">
+  <div id="main_content_outer" class="clearfix">
+    <div id="main_content">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">Reporte No# <%= @report.id %></h4>
+              <p><strong>STATUS</strong></p>
+            </div>
+            <div class="panel-body">
+              <form role="form">
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <label for="">Espacio Público que se reporto</label>
+                      <p class="form-control-static">
+                        <%= link_to @report.listing.name, edit_admin_listing_path(@report.listing) %>
+                      </p>
+                    </div>
+                    <div class="col-xs-6">
+                      <label for="">Reportado por</label>
+                      <p class="form-control-static">
+                        <%= @report.user.present? ? @report.user.username : "Anonimo" %>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <label for="">Tipo de reporte</label>
+                      <p class="form-control-static"><%= @report.report_type %></p>
+                    </div>
+                    <div class="col-xs-6">
+                      <label for="">Urgencia del reporte</label>
+                      <p class="form-control-static"><%= @report.priority %></p>
+                    </div>
+                  </div>
+                </div>
+                <% if @report.photo.present? %>
+                <div class="form-group">
+                  <label for="">Foto</label>
+                  <p class="form-control-static">
+                    <%= link_to "Evidencia que respalda el reporte", @report.photo.url %>
+                  </p>
+                </div>
+                <% end -%>
+                <div class="form-group">
+                  <label for="exampleInputFile">Descripción</label>
+                  <p class="form-control-static"><%= @report.description %></p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

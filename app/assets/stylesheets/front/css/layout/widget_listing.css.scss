@@ -1,0 +1,157 @@
+.listing_item {
+	width: 278px;
+	height: auto;
+	position: relative;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+}
+.listing_item.adoptado {}
+.listing_item.libre {}
+.listing_item.pending {}
+.listing_item.is_featured {}
+.listing_item_opacity {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+.listing_item_information {
+	padding: 15px 15px 5px;
+}
+.listing_item_links {
+	font-size: 12px;
+}
+.listing_item_links a {
+	display: inline-block;
+	margin: 0 5px;
+	color: #8d8d8d;
+	text-transform: uppercase;
+}
+.listing_item_adopter_url {
+	float: left;
+	text-align: left;
+}
+.listing_item_adopter_name {
+	display: inline-block;
+	margin-left: 10px;
+	width: 80px;
+	white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.listing_item_adopter {
+	padding: 10px 10px 0;
+}
+.listing_item_adopter p {
+	margin: 0;
+	padding: 0
+}
+.listing_item_adopter .listing_item_adopter_social {
+	margin: 0;
+	padding-top: 6px;
+}
+.listing_item_adopter_url {}
+.listing_item_social_circle {
+	display: inline-block;
+	width: 25px;
+	height: 24px;
+	margin: 0 0 0 5px;
+	padding: 3px 0;
+	text-align: center
+}
+.listing_item_action {
+	width: 100%;
+	margin-bottom: 15px;
+}
+.listing_item_action .btn-outline-inverse {}
+
+.listing__details-container {
+	padding: 15px;
+}
+.venu__cover {
+	margin-right: 20px;
+}
+.venu__info-name {
+	letter-spacing: -1px;
+	margin: 0;
+}
+.venu__info-address {
+	font-size: 13px;
+}
+.venu__social-list {
+	margin: 0;
+	line-height: 0;
+}
+.venu__social-list > li {
+	vertical-align: top
+}
+.venu__info-description {
+	font-size: 13px;
+	line-height: 1.5
+}
+.venu__social-list-twitter {
+	width: 90px;
+	overflow: hidden;
+}
+.venu__adopter-logo {
+	margin-right: 10px;
+}
+.venu__section {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+	margin: 20px 0;
+	padding-bottom: 10px;
+}
+.venu__adopter {}
+.venu__adopter-name {
+	margin: 0;
+	padding: 5px 0 0;
+}
+.venu__adopter-social {
+	font-size: 20px;
+}
+.venu__map {
+	height: 260px;
+}
+
+.venu__tabs .tab-pane {
+	padding: 10px;
+	margin-bottom: 15px;
+}
+
+.event_listing {
+	width: 100%;
+}
+.event_listing_item {}
+.event_listing_item .date {}
+.event_listing_item .info {}
+
+.event_listing_item {
+	font-size: 12px;
+	line-height: 20px;
+	word-wrap: break-word;
+	border-top: #EDEDED solid 1px;
+}
+
+.event_listing_item>td {
+	padding: 15px 0;
+	vertical-align: top;
+}
+.event_listing_item .date {
+	padding-right: 12px;
+	width: 70px;
+}
+.event_listing_item .date>strong {
+	display: block;
+	width: 70px;
+	font-weight: 600;
+	text-transform: uppercase;
+	color: #404040;
+}
+
+.event_listing_item .info>h3 {
+	font-size: 17px;
+	font-style: italic;
+	margin-bottom: 4px;
+	margin-top: 0;
+	text-transform: capitalize;
+}

@@ -1,0 +1,36 @@
+.providers_container {
+  padding: 15px;
+  .page-header {
+    margin-top: 0;
+    h1 {
+      font-size: 26px;
+      margin-top: 0;
+    }
+  }
+  .provider__listing {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .provider__listing img {
+    max-width: 180px;
+  }
+}
+
+/**** MEDIA QUERIES ****/
+@media only screen and (max-width: 991px) {
+    .provider__listing a {
+        margin: 0;
+    }
+    .provider__listing .media-body {
+        padding: 10px;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .provider__listing img {
+        max-width: 180px;
+    }
+}

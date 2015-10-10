@@ -1,0 +1,46 @@
+
+<section class="container clearfix main_section">
+  <div id="main_content_outer" class="clearfix">
+    <div id="main_content">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">Listado de Documento</h4>
+        </div>
+        <div class="panel_controls">
+          <div class="row">
+            <div class="col-sm-8">
+              <label for="table_search">Buscar:</label>
+              <input type="text" id="table_search" name="nombre" class="form-control" placeholder="buscar por Título del Documento">
+            </div>
+            <div class="col-sm-4 col-xs-6 ">
+              <label>&nbsp;</label>
+              <button class="btn btn-default btn-sm" id="clear-filter">Limpiar filtro</button>
+              <%= link_to 'Nuevo Documento', new_admin_document_path, :class=>"btn btn-primary" %>
+            </div>
+          </div>
+        </div>
+        <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="40">
+        <thead>
+          <tr>
+            <th>Título </th>
+            <th>Documento</th>
+            <th class="text-center">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for document in @documents %>
+            <tr>
+              <td><%= document.title %></td>
+              <td><%= link_to "Ver Documento", [:admin, document], :target => "_blank" %></td>
+              <td class="text-center">
+                <%= link_to 'Edit', edit_admin_document_path(document), :class=>"btn btn-primary" %>
+                <%= link_to 'Destroy', [:admin, document], method: :delete, data: { confirm: '¿Está seguro?' }, :class=>"btn btn-danger" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+</div>

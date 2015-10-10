@@ -1,0 +1,70 @@
+<section class="container clearfix main_section">
+  <div id="main_content_outer" class="clearfix">
+    <div id="main_content">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">Editar Usario</h4>
+            </div>
+            <div class="panel-body">
+              <%= form_for([:admin, @user]) do |f| %>
+              <% if @user.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+                  <ul>
+                    <% @user.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+              <div class="row">
+                <div class="col-sm-6">
+                  <%= f.label :username, { class: 'req' } do %>
+                    Nombre de Usuario
+                  <% end %>
+                  <%= f.text_field :username, { class: 'form-control', 'data-required' => 'true' } %>
+                </div>
+                <div class="col-sm-6 col-xs-6">
+                  <%= f.label :email, "Dirección de correo electrónico", class: "req" %>
+                  <%= f.text_field :email, { class: 'form-control', 'data-required' => 'true' } %>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <%= f.label :password, "Contraseña", class: "req" %>
+                  <%= f.password_field :password, { class: 'form-control', 'data-required' => 'true' } %>
+                </div>
+                <div class="col-sm-6 col-xs-6">
+                  <%= f.label :password_confirmation, "Confirmar contraseña", class: "req" %>
+                  <%= f.password_field :password_confirmation, { class: 'form-control', 'data-required' => 'true' } %>
+                </div>
+              </div>
+              <% if is_admin? %>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <%= f.label :role, "Tipo de Rol", class: "req" %>
+                    <%= hidden_field_tag "user[role_ids][]", nil%>
+                    <% Role.all.each do |role| %>
+                      <label class="checkbox">
+                          <%= radio_button_tag "user[role_ids][]", role.id, @user.role_ids.include?(role.id), id: dom_id(role) %>
+                          <%= role.name %>
+                      </label>
+                    <% end %></div>
+                </div>
+              <% end %>
+              <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                  <%= f.submit (@user.new_record? ? "Registrar" : "Actualizar"), { class: 'btn btn-primary' } %>
+                </div>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

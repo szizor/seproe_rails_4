@@ -1,0 +1,66 @@
+<section class="container clearfix main_section">
+  <div id="main_content_outer" class="clearfix">
+    <div id="main_content">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">Usarios</h4>
+            </div>
+            <div class="panel_controls">
+              <div class="row">
+                <%= form_tag('/admin/users', :method => :get) do %>
+                  <div class="col-sm-4">
+                    <label for="table_search">Búsqueda:</label>
+                    <input type="text" id="table_search" class="form-control" name="usuario">
+                  </div>
+                  <div class="col-sm-3 col-xs-6">
+                    <label for="un_member">Tipo de rol:</label>
+                    <select id="un_member" class="form-control" name="rol">
+                      <option value="">---</option>
+                      <option value="admin">Administrador General</option>
+                      <option value="usuario">Usuario Público</option>
+                      <option value="adoptante">Adoptante</option>
+                    </select>
+                  </div>
+                <% end %>  
+                <div class="col-sm-3 col-xs-6">
+                  <label>&nbsp;</label>
+                  <button class="btn btn-default btn-sm" id="clear-filter">Borrar Filtros</button>
+                </div>
+              </div>
+            </div>
+            <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="40">
+              <thead>
+                <tr>
+                  <th data-toggle="true">Nombre de Usuario</th>
+                  <th data-hide="email,role">Correo Electrónico</th>
+                  <th>Tipo de Rol</th>
+                  <th class="actions text-center">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for user in @users %>
+                  <tr>
+                    <td><%= user.username %></td>
+                    <td><%= user.email %></td>
+                    <td><%= user.roles.map(&:name).join(',') %></td>
+                    <td class="actions text-center">
+                      <%= link_to edit_admin_user_path(user), { class: 'btn btn-primary' } do %>
+                        <span class="icon-edit"></span> Editar
+                      <% end %>
+                      <%= link_to [:admin, user], {:confirm => "¿Está seguro?", :method => :delete, class: 'btn btn-danger' } do %>
+                        <span class="icon-remove"></span> Borrar
+                      <% end unless user.id == current_user.id%>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<%= will_paginate @users %>

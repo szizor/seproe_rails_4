@@ -1,0 +1,81 @@
+<section class="container clearfix main_section">
+  <div id="main_content_outer" class="clearfix">
+    <div id="main_content">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">Administrar los Espacios Públicos</h4>
+            </div>
+            <div class="panel_controls">
+              <div class="row">
+                <div class="col-sm-8">
+                  <label for="table_search">Search:</label>
+                  <input type="text" id="table_search" name="nombre" class="form-control" placeholder="buscar por el nombre del espacio publico o direccion o adoptante">
+                </div>
+                <div class="col-sm-4 col-xs-6 ">
+                  <label>&nbsp;</label>
+                  <button class="btn btn-default btn-sm" id="clear-filter">Limpiar filtro</button>
+                  <%= link_to 'Crear espacio público', new_admin_listing_path, :class=>"btn btn-primary  btn-sm" %>
+                </div>
+              </div>
+            </div>
+            <table id="resp_table" class="table toggle-square pretty" data-filter="#table_search" data-page-size="40">
+              <thead>
+                <tr>
+                    <th><%= sortable "Nombre" %></th>
+                    <th>Entre Calles</th>
+                    <th>Preferido?</th>
+                    <th>Adoptante</th>
+                    <th><%= sortable "Estado" %></th>
+                    <th class="text-center">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @listings.each do |listing| %>
+                  <tr>
+                    <td><%= listing.name %></td>
+                    <td><%= listing.subtitle %></td>
+                    <td>
+                      <% if listing.is_featured? %>
+                        <i class="fa fa-check" style="color: #2ecc71"></i>
+                      <% else %>
+                        <i class="fa fa-times" style="color: #bdc3c7"></i>
+                      <% end %>
+                    </td>
+                    <td class="text-center">
+                      <% if listing.adopter.present? %>
+                        <%= listing.adopter.display_name %>
+                        (<%= listing.adopter.nombre %>)
+                      <% else %>
+                        <i class="fa fa-times" style="color: #bdc3c7"></i>
+                      <% end %>
+                    </td>
+                    <td>
+                      <% if listing.listing_type.name == 'Libre' %>
+                        <i class="fa fa-times" style="color: #7f8c8d"></i>
+                      <% elsif listing.listing_type.name == 'En Proceso' %>
+                        <i class="fa fa-minus" style="color: #f39c12"></i>
+                      <% else %>
+                        <i class="fa fa-check" style="color: #2ecc71"></i>
+                      <% end %>
+                      <%= listing.listing_type.name %>
+                    </td>
+                    <td class="text-center">
+                        <%= link_to 'Imágenes', admin_listing_images_path(listing), :class=>"btn btn-sm btn-default" %>
+                        <%= link_to 'Vídeos', admin_listing_videos_path(listing), :class=>"btn btn-sm btn-default" %>
+                        <%= link_to 'Dinero', admin_listing_money_index_path(listing), :class=>"btn btn-sm btn-default" %>
+                        <%= link_to 'Editar', edit_admin_listing_path(listing), :class=>"btn btn-sm btn-primary" %>
+                        <%= link_to 'Borrar Votos', admin_listing_reset_votes_path(listing), method: :post, data: { confirm: 'Se eliminaran todos los votos' }, :class=>"btn btn-sm btn-danger" %>
+                        <%= link_to 'Borrar', [:admin, listing], method: :delete, data: { confirm: '¿Seguro que deseas eliminarlo?' }, :class=>"btn btn-sm btn-danger" %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

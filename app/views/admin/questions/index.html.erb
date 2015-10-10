@@ -1,0 +1,48 @@
+<section class="container clearfix main_section">
+  <div id="main_content_outer" class="clearfix">
+    <div id="main_content">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">Administrar las preguntas de los ciudadanos</h4>
+            </div>
+            <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="40">
+                <thead>
+                    <tr>
+                        <th>Preguntado por</th>
+                        <th>título de la pregunta </th>
+                        <th>Estatus de la pregunta</th>
+                        <th class="text-center">Opciones</th>
+                    </tr>
+                  </thead>
+                <tbody>
+                  <% @questions.each do |question| %>
+                    <tr>
+                      <td><%= question.user.try(:username) %></td>
+                      <td><%= question.title %></td>
+                      <td>
+                        <% if question.status.present? %>
+                            <i class="fa fa-check-square" style="color: #2ecc71; font-size: 16px;"></i> Resuelto
+                        <% else %>
+                          <% if question.status.nil? || question.status == 0 %>
+                            <i class="fa fa-times-circle-o" style="color: #bdc3c7; font-size: 16px;"></i> Pendiente
+                          <% else %>
+                            <i class="fa fa-minus-square-o" style="color: #f39c12; font-size: 16px;"></i> Respondido
+                          <% end %>
+                        <% end %>
+                      </td>
+                      <td class="text-center">
+                        <%= link_to 'Responde a la pregunta', [:admin, question], :class=>"btn btn-primary" %>
+                        <%= link_to 'Borrar', [:admin, question], method: :delete, data: { confirm: '¿Está seguro?' }, :class=>"btn btn-danger" %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
