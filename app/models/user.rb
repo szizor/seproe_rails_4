@@ -4,8 +4,24 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:username]
   has_and_belongs_to_many :roles
-  accepts_nested_attributes_for :roles
-  after_create :add_role, :send_confirmation
+   accepts_nested_attributes_for :roles
+  has_many :videos
+  has_many :photos
+  has_one :adopter
+  has_many :adopters
+  has_many :moneys
+  has_many :questions, dependent: :destroy
+  has_many :responses, dependent: :destroy
+  has_many :images, dependent: :destroy
+  has_many :events, dependent: :destroy
+  has_many :money, dependent: :destroy
+  has_many :evaluations, class_name: "ReputationSystem::Evaluation", as: :source
+  accepts_nested_attributes_for :adopter, allow_destroy: true
+  #has_reputation :votes, source: {reputation: :votes, of: :listings}, aggregated_by: :sum
+
+  validates_presence_of :username
+  validates_uniqueness_of :username
+  after_create :add_role#, :send_confirmation
 
   def role?(role)
       return !!self.roles.find_by_name(role.to_s.camelize)

@@ -1,0 +1,77 @@
+<% title "Denunciar un incidente en los espacios públicos" %>
+<% content_for :head do %>
+  <script type="text/javascript">
+    var publicSpaces =  <%= @publicSpaces.to_json.html_safe %>;
+  </script>
+<% end %>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=442503135786308";
+  fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+<% content_for :sidebar do %>
+  <%= render :partial => 'partials/listing/sidebar'  %>
+<% end %>
+<%= render :partial => 'partials/shared/header'  %>
+<div class="reports_container">
+  <div class="page-header">
+    <h1>Reportes <small>Denunciar un incidente en los espacios públicos</small></h1>
+  </div>
+  <% if true#user_signed_in? %>
+    <%= form_for @report do |f| %>
+    <% if @report.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>
+        <ul>
+          <% @report.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-6">
+            <label for="" class="req">Espacio Público que deseas reportar</label>
+            <%= f.select(:listing_id, @listings_available.collect {|p| [ p.name, p.id ] }, { include_blank: "-- Seleccione un espacio público" }, :class=>"form-control", :required=>"required")%>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-6">
+            <label for="" class="req">Tipo de reporte</label>
+            <%= f.select :report_type, ['Invasión', 'Delincuencia', 'Comercio informal', 'Otros'], {:include_blank => "-- Seleccione una opción"}, {:class => "form-control", :required=>"required"} %>
+          </div>
+          <div class="col-xs-6">
+            <label for="" class="req">Urgencia del reporte</label>
+            <%= f.select :priority, ['Baja', 'Media', 'Alta'], {:include_blank => "-- Seleccione una opción"}, {:class => "form-control", :required=>"required"} %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="">Foto</label>
+        <p class="help-block">Evidencia visual que respalda el reporte.</p>
+        <%= f.file_field :photo, { class: 'form-control input-sm' } %>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputFile" class="req">Descripción</label>
+        <%= f.text_area :description, :class => 'form-control', :rows => 4, :required=>"required" %>
+      </div>
+      <% if user_signed_in? %>
+        <%= f.hidden_field :user_id, :value => current_user.id %>
+      <% end -%>
+      <%= f.hidden_field :status, :value => "Abierto" %>
+      <%= f.submit "Enviar Reporte", :class => "btn btn-primary" %>
+    <% end %>
+  <% else %>
+    <div class="alert alert-danger">
+      <strong>Ooops!</strong> Usted no ha iniciado sesión y por lo tanto no puede solicitar un reporte. Por favor cree una cuenta primero antes de hacer su reporte.
+    </div>
+  <% end %>
+</div>
+<%= javascript_include_tag :reportar %>

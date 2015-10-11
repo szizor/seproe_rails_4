@@ -1,0 +1,15 @@
+<% title 'Añadir nueva foto para ' + @listing.name %>
+<% content_for :sidebar do %>
+  <%= render :partial => 'partials/listing/sidebar'  %>
+<% end %>
+<%= render :partial => 'partials/shared/header' %>
+<div class="listing__details-container">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Añadir nueva foto para <%= @listing.name %></h3>
+    </div>
+    <div class="panel-body">
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>

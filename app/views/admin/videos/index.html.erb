@@ -1,0 +1,18 @@
+<% title @listing.name %>
+
+<div id="paintings">
+  <% for video in @listing.videos %>
+    <div class="videos">
+      <%= link_to video.url, video.url %>
+      <div class="actions">
+        <%#= link_to "edit", edit_admin_listing_video_path(@listing,video) %> |
+        <%= link_to "remove", video, :confirm => 'Are you sure?', :method => :delete %>
+      </div>
+    </div>
+  <% end %>
+  <div class="clear"></div>
+</div>
+
+<p>
+  <%= link_to "Add a Video", new_admin_listing_video_path(:listing_id => @listing.id) %>
+</p>

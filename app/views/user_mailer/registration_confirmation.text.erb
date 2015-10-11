@@ -1,0 +1,6 @@
+Nuevo registro,
+Los datos son :
+
+<% for attribute in @adopter.attributes.keys %>
+  <p><%= attribute.humanize %> <%= @adopter.attributes[attribute].to_s %></p>
+<% end %>

@@ -1,0 +1,41 @@
+<% title 'Vídeos de ' + @listing.name %>
+<% content_for :sidebar do %>
+  <%= render :partial => 'partials/listing/sidebar'  %>
+<% end %>
+<%= render :partial => 'partials/shared/header' %>
+<div class="listing__details-container">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Vídeos de <%= @listing.name %></h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>Nombre del Vídeo</th>
+              <th>Enlace del Vídeo en Youtube</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for video in @listing.videos %>
+            <tr class="mix">
+              <td><%= video.id %></td>
+              <td><%= video.title %></td>
+              <td>
+                <%= link_to video.url, target: "_blank", class: '' do %>
+                  <%= video.url %>
+                <% end %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="panel-footer text-center">
+      <%= link_to "Agregar un Nuevo Vídeo", listing_new_video_path(:listing_id => @listing.id), :class => 'btn btn-primary' %>
+    </div>
+  </div>
+</div>

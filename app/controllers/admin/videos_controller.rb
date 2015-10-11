@@ -1,9 +1,8 @@
-# encoding: utf-8
 class Admin::VideosController < Admin::BaseController
-  load_and_authorize_resource
+  before_action :set_video, only: [:show, :edit, :update, :destroy]
  
   def index
-    @listing = Listing.find(params[:listing_id])
+    @listing = Listing.friendly.find(params[:listing_id])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -12,12 +11,6 @@ class Admin::VideosController < Admin::BaseController
   end
 
   def show
-    @video = Video.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @video }
-    end
   end
 
   def new
@@ -30,11 +23,10 @@ class Admin::VideosController < Admin::BaseController
   end
 
   def edit
-    @video = Video.find(params[:id])
   end
 
   def create
-    @video = Video.new(params[:video])
+    @video = Video.new(video_params)
 
     respond_to do |format|
       if @video.save
@@ -48,10 +40,9 @@ class Admin::VideosController < Admin::BaseController
   end
 
   def update
-    @video = Video.find(params[:id])
 
     respond_to do |format|
-      if @video.update_attributes(params[:video])
+      if @video.update(video_params)
         format.html { redirect_to [:admin, @video], notice: 'Video editado exitosamente' }
         format.json { head :no_content }
       else
@@ -62,7 +53,6 @@ class Admin::VideosController < Admin::BaseController
   end
 
   def destroy
-    @video = Video.find(params[:id])
     @video.destroy
 
     respond_to do |format|
@@ -70,4 +60,13 @@ class Admin::VideosController < Admin::BaseController
       format.json { head :no_content }
     end
   end
+
+  private
+    def set_video
+      @video = Video.find(params[:id])
+    end
+
+    def video_params
+      params.require(:video).permit(:url, :user_id, :listing_id, :title)
+    end
 end

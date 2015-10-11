@@ -1,9 +1,8 @@
-# encoding: utf-8
 class Admin::MoneyController < Admin::BaseController
-  load_and_authorize_resource
+  before_action :set_money, only: [:show, :edit, :update, :destroy]
 
   def index
-    @listing = Listing.find(params[:listing_id])
+    @listing = Listing.friendly.find(params[:listing_id])
     @money = Money.where(:listing_id => @listing.id)
     respond_to do |format|
       format.html # index.html.erb
@@ -12,12 +11,6 @@ class Admin::MoneyController < Admin::BaseController
   end
 
   def show
-    @money = Money.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @money }
-    end
   end
 
   def new
@@ -30,11 +23,10 @@ class Admin::MoneyController < Admin::BaseController
   end
 
   def edit
-    @money = Money.find(params[:id])
   end
 
   def create
-    @money = Money.new(params[:money])
+    @money = Money.new(money_params)
 
     respond_to do |format|
       if @money.save
@@ -48,11 +40,9 @@ class Admin::MoneyController < Admin::BaseController
   end
 
   def update
-    @money = Money.find(params[:id])
-
     respond_to do |format|
-      if @money.update_attributes(params[:event])
-        listing = Listing.find(params[:listing_id])
+      if @money.update(money_params)
+        listing = Listing.friendly.find(params[:listing_id])
         format.html { redirect_to admin_listing_money_path(listing), notice: 'Cantidad editada satisfactoriamente.' }
         format.json { head :no_content }
       else
@@ -71,4 +61,13 @@ class Admin::MoneyController < Admin::BaseController
       format.json { head :no_content }
     end
   end
+
+  private
+    def set_money
+      @money = Money.find(params[:id])
+    end
+
+    def money_params
+      params.require(:money).permit(:amount, :user_id, :listing_id, :spent_date, :description, :adopter_id)
+    end
 end

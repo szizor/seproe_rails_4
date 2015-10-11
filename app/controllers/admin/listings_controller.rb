@@ -63,7 +63,7 @@ class Admin::ListingsController < Admin::BaseController
   end
 
   def reset_votes
-    @listing = Listing.find(params[:listing_id])
+    @listing = Listing.friendly.find(params[:listing_id])
     evaluations = @listing.evaluations
     evaluations.each do |eval|
       eval.destroy

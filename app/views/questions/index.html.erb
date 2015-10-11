@@ -1,0 +1,75 @@
+<% title 'Preguntas' %>
+<% content_for :head do %>
+<% end %>
+<% content_for :sidebar do %>
+  <%= render :partial => 'partials/listing/sidebar'  %>
+<% end %>
+<%= render :partial => 'partials/shared/header'  %>
+
+<div class="qa__listings-container">
+  <div class="qa__listings">
+    <div class="qa__listings-toolbar btn-toolbar" role="toolbar">
+      <div class="btn-group btn-group-sm text-center">
+        <%= link_to new_question_path, :class=>"btn btn-default" do %>
+          <i class="fa fa-comments-o"></i> Nueva Pregunta
+        <% end %>
+      </div>
+    </div>
+    <% for question in @questions %>
+      <article itemscope itemtype="http://schema.org/Article" class="hentry media qa__listings-item">
+        <div class="pull-left">
+          <% if question.user.present? && question.user.avatar.present? %>
+            <%= image_tag(question.user.avatar, size: "64x64", alt: question.user.username) %>
+          <% else %>
+            <%= image_tag("front/img/avatar.png", size: "64x64") %>
+          <% end %>
+        </div>
+        <div class="media-body">
+          <header class="entry-header">
+            <h2 class="entry-title" itemprop="name headline">
+              <%= link_to(question_path(question), :rel => 'bookmark', :itemprop => "url") do %>
+                <%= question.title %>
+              <% end %>
+            </h2>
+            <div class="entry-meta">
+                <span class="date">
+                  <%
+                    data_from = question.created_at
+                    data_now = Time.now
+                  %>
+                  <time class="entry-date" datetime="<%= data_from %>"><%= distance_of_time_in_words(data_from.utc, data_now.utc) %></time>
+                </span>
+                <span class="author vcard">
+                  - Por <span class="url fn n" rel="author" itemprop="author">
+                  <% if question.user.present? %>
+                    <%= question.user.username %>
+                  <% else %>
+                    usuario no registrado
+                  <% end %>
+                </span>
+                </span>
+              </div>
+          </header>
+
+          <div class="entry-content">
+            <%= truncate(question.body, :length => 155, :separator => ' ') %>
+          </div>
+
+          <footer class="entry-meta">
+            <meta itemprop="interactionCount" content="UserTweets:1203"/>
+            <meta itemprop="interactionCount" content="UserComments:78"/>
+            <div class="comments-link">
+              <a href="<%= question_path(question) %>/#comments" title="Commentarios de <%= question.title %>">
+                <%= pluralize( question.responses.count, 'Respuesta' ) %> hasta ahora
+              </a>
+            </div>
+          </footer>
+        </div>
+      </article>
+    <% end %>
+
+  </div>
+</div>
+<% content_for :footer do %>
+  <%= javascript_include_tag :qa %>
+<% end %>

@@ -1,0 +1,40 @@
+<% title @listing.name %>
+<% content_for :head do %>
+<link rel="stylesheet" href="/assets/admin/lib/magnific-popup/magnific-popup.css">
+<% end %>
+<div class="row" id="paintings">
+  <div class="col-sm-12" id="gallery_grid">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title"><%= @listing.name %></h4>
+      </div>
+      <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="40">
+        <tr>
+          <th>Cantidad</th>
+          <th>Descripción</th>
+          <th>Fecha</th>
+        </tr>
+
+      <% @money.each do |money| %>
+        <tr>
+          <td><%= number_to_currency(money.amount) %></td>
+          <td><%= money.description %></td>
+          <td><%= I18n.l money.spent_date, :format => :short %></td>
+        </tr>
+      <% end %>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-body text-center">
+    <%= link_to "Añadir nueva cantidad", new_admin_listing_money_path(:listing_id => @listing.id), :class => 'btn btn-primary' %>
+  </div>
+</div>
+
+<% content_for :footer do %>
+
+<link rel="stylesheet" href="/assets/admin/lib/magnific-popup/jquery.magnific-popup.min.js">
+<link rel="stylesheet" href="/assets/admin/pages/ebro_gallery.js">
+
+<% end %>

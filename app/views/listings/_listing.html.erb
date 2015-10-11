@@ -1,0 +1,48 @@
+
+  <div class="listing_item text-center <%= listing.listing_type.name.downcase.tr(' ', '_') %><% if listing.is_featured.present? %> is_featured<% end %>" id="listing-<%= listing.id %>">
+    <div class="listing_cover_image">
+      <img src="<% if listing.cover_image.present? %><%= listing.cover_image %><% else %>/images/listing_cover.jpg<% end %>" alt="<%= listing.name %>" width="278" height="208">
+    </div>
+    <div class="listing_item_information">
+      <a href="/<%= listing.slug %>" class="listing_item_name" title="<%= listing.name %>"><%= listing.name %></a>
+      <% if listing.subtitle.present? %>
+        <p class="listing_item_cross">(<%= listing.subtitle %>)</p>
+      <% end %>
+
+      <div class="listing_item_links">
+        <% if listing.listing_type.name.downcase.tr(' ', '_') != "adoptado" %>
+        <%= link_to 'Adoptar', adoptar_path(:anchor => listing.name) %>
+        <% end %>
+        <%= link_to 'Reportar', reportes_path(:anchor => listing.name) %>
+      </div>
+    </div>
+    <% if listing.adopter.present? %>
+      <div class="listing_item_adopter">
+
+        <p>
+          <% if listing.adopter.url.present? %>
+            <a href="<%= listing.adopter.url %>" class="listing_item_adopter_url" target="_blank">
+              <% if listing.adopter.logo.present? %>
+                <img src="<%= listing.adopter.logo %>" title="<%= listing.adopter.nombre %>" class="listing_item_adopter_logo">
+              <% end %>
+              <span class="listing_item_adopter_name">
+                Adoptado Por:<br/>
+                <%= listing.adopter.nombre %>
+              </span>
+            </a>
+          <% else %>
+            Adoptado Por:<br/>
+            <%= listing.adopter.nombre %>
+          <% end %>
+        </p>
+        <p class="listing_item_adopter_social">
+          <a href="<%= listing.adopter.facebook_url %>" class="listing_item_social_circle facebook" target="_blank">
+            <i class="fa fa-facebook"></i>
+          </a>
+          <a href="<%= listing.adopter.twitter_url %>" class="listing_item_social_circle twitter" target="_blank">
+            <i class="fa fa-twitter"></i>
+          </a>
+        </p>
+      </div>
+    <% end %>
+  </div>

@@ -1,0 +1,9 @@
+es:
+  date:
+    formats:
+      moneyformat: '%b, %Y'
+  time:
+    formats:    
+      dia_semana: '%a'
+      datesformat: "%b %d, %Y a las %I:%M %p"
+      event: "%b %d"

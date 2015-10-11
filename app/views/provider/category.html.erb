@@ -1,0 +1,77 @@
+<% title "Proveedores" %>
+<% content_for :head do %>
+  <script type="text/javascript">
+    var publicSpaces =  <%= @publicSpaces.to_json.html_safe %>;
+  </script>
+<% end %>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=442503135786308";
+  fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+<% content_for :sidebar do %>
+  <%= render :partial => 'partials/listing/sidebar'  %>
+<% end %>
+<%= render :partial => 'partials/shared/header'  %>
+<div class="providers_container">
+  <div class="page-header">
+    <h1>Proveedores <small>relacionadas con programa AEP</small></h1>
+  </div>
+  <% if user_signed_in? && current_user.roles[0].name != "Adoptante" %>
+    <div class="alert alert-danger">
+      <p>Esta sección sólo está disponible para los adoptantes</p>
+    </div>
+  <% else %>
+    <div class="row">
+      <div class="col-md-8">
+        <% @providers.each do |p| %>
+        <div class="provider__container provider__listing" itemscope itemtype="http://schema.org/LocalBusiness">
+          <div class="media">
+            <div class="media-body">
+              <h4 class="media-heading">
+                <%= p.name %>
+              </h4>
+              <ul class="list-inline" class="hidden-xs" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                <li itemprop="streetAddress"><%= p.address %></li>
+              </ul>
+              <p>
+                Teléfono:
+                <span itemprop="telephone"><%= p.phone %></span>
+              </p>
+              <p class="category_link">
+                  <span>Categoria: </span><a href="/proveedores/<%= p.provider_category.slug %>" title="Jardinería"><%= p.provider_category.name %></a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <% end %>
+        <div class="text-center">
+          <!-- <ul class="pagination">
+            <li class="disabled"><a href="#">&laquo;</a></li>
+            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">»</a></li>
+          </ul> -->
+        </div>
+      </div>
+      <div class="col-md-4">
+        <p><strong>Categorías</strong></p>
+        <div class="list-group">
+          <% @provider_categories.each do |cat| %>
+            <a href="/proveedores/<%= cat.slug %>" class="list-group-item">
+              <%= cat.name %>
+            </a>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<%= javascript_include_tag :providers %>

@@ -1,0 +1,17 @@
+<% title 'Añadir nuevo evento para ' + @listing.name %>
+<% content_for :sidebar do %>
+  <%= render :partial => 'partials/listing/sidebar'  %>
+<% end %>
+<%= render :partial => 'partials/shared/header' %>
+<div class="listing__details-container">
+  <div class="panel panel-default">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">Añadir Evento</h4>
+      </div>
+      <div class="panel-body">
+				<%= render 'event_form' %>
+			</div>
+    </div>
+  </div>
+</div>

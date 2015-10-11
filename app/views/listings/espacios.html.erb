@@ -1,0 +1,48 @@
+<% title 'Mis Espacios Publicos' %>
+<% content_for :head do %>
+  <script type="text/javascript">
+    var publicSpaces =  <%= @listings.to_json.html_safe %>;
+  </script>
+<% end %>
+<% content_for :sidebar do %>
+  <%= render :partial => 'partials/listing/sidebar'  %>
+<% end %>
+<%= render :partial => 'partials/shared/header' %>
+
+<div class="listing__details-container">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Listado de mis Espacios Públicos</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+          <thead>
+            <tr>
+                <th>Nombre del Espacio Público</th>
+                <th>Ubicación</th>
+                <th class="text-center">Destacado?</th>
+                <th class="text-center">Dimensión</th>
+                <th class="text-center">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @my_listings.each do |listing| %>
+              <tr>
+                <td><%= listing.name %></td>
+                <td><%= listing.location %></td>
+                <td class="text-center"><%= listing.is_featured? ? "Si" : "No" %></td>
+                <td class="text-center"><%= listing.dimensions %></td>
+                <td>
+                  <div class="text-center">
+                    <%= link_to 'Fotos', listing_images_path(listing), :class => 'btn btn-primary' %> <%= link_to 'Vídeos', listing_videos_path(listing), :class => 'btn btn-primary' %> <%= link_to 'Dinero', listing_dinero_path(listing), :class => 'btn btn-primary' %> <%= link_to 'Eventos', listing_events_path(listing), :class => 'btn btn-primary' %>
+                  </div>
+                </td>
+              </tr>
+            <% end if @my_listings%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

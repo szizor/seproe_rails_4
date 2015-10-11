@@ -1,0 +1,52 @@
+<% title "Documentos relacionadas con programa AEP" %>
+<% content_for :head do %>
+  <script type="text/javascript">
+    var publicSpaces =  <%= @publicSpaces.to_json.html_safe %>;
+  </script>
+<% end %>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=442503135786308";
+  fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+<% content_for :sidebar do %>
+  <%= render :partial => 'partials/listing/sidebar'  %>
+<% end %>
+<%= render :partial => 'partials/shared/header'  %>
+<div class="documents_container">
+  <div class="page-header">
+    <h1>Documentos <small>relacionadas con programa AEP</small></h1>
+  </div>
+  <div class="table-responsive">
+    <% if @documents.present? %>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Nombre del documento</th>
+          <th>Descargar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @documents.each do |document| %>
+        <tr>
+          <td><%= document.title %></td>
+          <td>
+            <%= link_to(document_download_path(document), :rel => 'bookmark', :itemprop => "url") do %>
+              Descargue el documento
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% else %>
+      <div class="alert alert-warning">
+        Parece que no hay ningun documento todavía!
+      </div>
+    <% end %>
+  </div>
+</div>

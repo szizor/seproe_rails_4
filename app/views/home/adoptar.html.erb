@@ -1,0 +1,209 @@
+<% title "SEPROE" %>
+<% content_for :head do %><% end %>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=442503135786308";
+  fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+<% content_for :sidebar do %>
+  <%= render :partial => 'partials/listing/sidebar'  %>
+<% end %>
+
+
+<%= render :partial => 'partials/shared/header'  %>
+<div class="adopt__form">
+  <div>
+    <% flash.each do |key, value| %>
+      <div class="alert alert-dismissable <%= flash_class(key) %> fade in">
+         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <%= value.html_safe %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= form_for @adopter, :url => create_adopter_home_index_path, :html => { :role => "form" } do |f| %>
+    <% if @adopter.errors.any? %>
+      <div class="alert alert-danger">
+        <strong><%= pluralize(@adopter.errors.count, "Error") %></strong> prohibieron a este adoptante  guardar la información!
+        <ul>
+          <% @adopter.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <fieldset>
+      <legend>Adopta Tu Espacio Público deseado</legend>
+      <p>
+        Gracias por tu interés en adoptar un espacio público en la ciudad de Guadalajara, Jalisco. Para iniciar el proceso de adopción te pedimos que llenes el siguiente formulario para poder procesar tu solicitud.
+      </p>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label :nombre, "Seleccione un Espacio Público", class: "req" %>
+            <%= f.select(:desired_listing_id, @listings_available.collect {|p| [ p.name, p.id ] }, { include_blank: true }, :class=>"form-control", required: "required")%>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label :tipo, "Tipo de Persona", class: "req" %>
+            <%= f.select(:tipo, [["Persona Moral", 'moral'],["Persona Física", "fisica"]], { include_blank: false }, :class=>"form-control", required: "required")%>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Información Personal</legend>
+      <%= f.fields_for :contacts do |contact| %>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= contact.label :name, "Nombre Completo", class: "req" %>
+              <%= contact.text_field :name, { class: 'form-control input-sm', required: "required" } %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= contact.label :title, "Puesto" %>
+              <%= contact.text_field :title, { class: 'form-control input-sm' } %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= contact.label :phone, "Teléfono",class: "req" %>
+              <%= contact.text_field :phone, { class: 'form-control input-sm', required: "required" } %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= contact.label :cell, "Móvil", class: "req" %>
+              <%= contact.text_field :cell, { class: 'form-control input-sm', required: "required" } %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= contact.label :email,class: "req" %>
+              <%= contact.text_field :email, { class: 'form-control input-sm', required: "required" } %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= contact.label :ife, "Copia IFE representante legal/apoderado" %>
+              <%= contact.file_field :ife %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= label_tag 'user[username]', "Nombre de Usuario", class: "req" %>
+            <%= text_field_tag 'user[username]', nil, { class: 'form-control input-sm', required: "required" } %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= label_tag 'user[password]', "Password", class: "req" %>
+            <%= password_field_tag 'user[password]', nil, { class: 'form-control input-sm', required: "required" } %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= label_tag 'user[password_confirmation]', "Confirmar Password", class: "req" %>
+            <%= password_field_tag 'user[password_confirmation]', nil, { class: 'form-control input-sm', required: "required" } %>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset class="moral">
+      <legend>Información de la Institución</legend>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label :nombre, "Nombre del Institución", class: "req" %>
+            <%= f.text_field :nombre, { class: 'form-control input-sm', required: "required" } %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label :telefono, "Teléfono",class: "req" %>
+            <%= f.text_field :telefono, { class: 'form-control input-sm', required: "required" } %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label "Email de la Institución",class: "req" %>
+            <%= f.text_field :email, { class: 'form-control input-sm', required: "required" } %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label :url, "Sitio Web de la Institución" %>
+            <%= f.text_field :url, { class: 'form-control input-sm' } %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label :facebook_url, "Página de Facebook" %>
+            <%= f.text_field :facebook_url, { class: 'form-control input-sm' } %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label :twitter_url, "Cuenta de Twitter" %>
+            <%= f.text_field :twitter_url, { class: 'form-control input-sm' } %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label :alias, "Alias de la Institución" %>
+            <%= f.text_field :alias, { class: 'form-control input-sm' } %>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset class="moral">
+      <legend>Información legal</legend>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label :giro,class: "req" %>
+            <%= f.text_field :giro, { class: 'form-control input-sm', required: "required" } %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label :domicilio, "Domicilio fiscal",class: "req" %>
+            <%= f.text_field :domicilio, { class: 'form-control input-sm', required: "required" } %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label :logo, "Logo de la Institución (JPG)" %>
+            <%= f.file_field :logo %>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group text-center">
+            <%= f.submit "Enviar Solicitud", :class => "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<%= javascript_include_tag :adoptar %>

@@ -1,0 +1,27 @@
+<%= form_for @image, :url => listing_save_image_path, :html => {:multipart => true} do |f| %>
+  <%= f.error_messages %>
+  <%= f.hidden_field :listing_id %>
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#uploadPhoto" data-toggle="tab">Subir Foto</a></li>
+    <li><a href="#AddUrl" data-toggle="tab">Agregar foto de la web</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane active" id="uploadPhoto" style="padding: 20px;">
+      <div class="form-group">
+        <%= f.file_field :image %>
+        <p class="help-block">Dimensión de la foto no debe exceder 800 píxeles de ancho Y 600 de altura.</p>
+      </div>
+    </div>
+    <div class="tab-pane" id="AddUrl" style="padding: 20px;">
+      <div class="form-group">
+        <%= f.label :remote_image_url, "Agregar foto de la web" %>
+        <%= f.text_field :remote_image_url, :class => 'form-control', :placeholder => 'Añadir enlace de la foto' %>
+        <p class="help-block">Usted es responsable legalmente de todas las fotos que subas y los derechos de autor de las fotos</p>
+      </div>
+    </div>
+  </div>
+
+  <p><%= f.submit "Subir Foto", :class => 'btn btn-primary' %></p>
+<% end %>

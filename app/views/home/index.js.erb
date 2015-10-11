@@ -1,0 +1,6 @@
+$('.content-listing').append('<%= escape_javascript render(@listings) %>');
+$('.pagination').replaceWith('<%= escape_javascript will_paginate(@listings) %>');
+var $container = $('.content-listing');
+// $container.masonry();
+$container.masonry('reloadItems');   
+$container.masonry('layout');

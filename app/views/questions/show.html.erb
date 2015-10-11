@@ -1,0 +1,135 @@
+<% title @question.title.capitalize %>
+<% content_for :head do %>
+<% end %>
+<% content_for :sidebar do %>
+  <%= render :partial => 'partials/listing/sidebar'  %>
+<% end %>
+<%= render :partial => 'partials/shared/header'  %>
+<div class="qa__listings-container">
+  <div class="qa__listings">
+    <article itemscope itemtype="http://schema.org/Article" class="hentry media qa__listings-item">
+        <div class="pull-left">
+          <% if @question.user.present? && @question.user.avatar.present? %>
+            <%= image_tag(@question.user.avatar, size: "64x64", alt: @question.user.username) %>
+          <% else %>
+            <%= image_tag("front/img/avatar.png", size: "64x64") %>
+          <% end %>
+        </div>
+        <div class="media-body">
+          <header class="entry-header">
+            <h2 class="entry-title" itemprop="name headline">
+              <%= link_to(question_path(@question), :rel => 'bookmark', :itemprop => "url") do %>
+                <%= @question.title %>
+              <% end %>
+            </h2>
+            <div class="entry-meta">
+                <span class="date">
+                  <%
+                    data_from = @question.created_at
+                    data_now = Time.now
+                  %>
+                  <time class="entry-date" datetime="<%= data_from %>"><%= distance_of_time_in_words(data_from.utc, data_now.utc) %></time>
+                </span>
+                <span class="author vcard">
+                  - Por <span class="url fn n" rel="author" itemprop="author"><% if @question.user.present? %>
+                    <%= @question.user.username %>
+                  <% else %>
+                    usuario no registrado
+                  <% end %></span>
+                </span>
+              </div>
+          </header>
+
+          <div class="entry-content">
+            <%= @question.body %>
+          </div>
+        </div>
+    </article>
+    <div name="comments" class="qa__comments-listings">
+      <% @question.responses.order('created_at ASC').where(approved: true).all.each do |answer| %>
+        <article itemscope itemtype="http://schema.org/Article" class="hentry media qa__listings-item qa__listings-answer
+          <% if answer.user.present? && answer.user.roles.first.name == "Administrador" %>
+          qa__listings-answer-admin
+          <% end %>
+        ">
+          <div class="pull-left">
+            <% if answer.user.present? && answer.user.avatar.present? %>
+              <%= image_tag(answer.user.avatar, size: "64x64", alt: answer.user.username) %>
+            <% else %>
+              <%= image_tag("front/img/avatar.png", size: "64x64") %>
+            <% end %>
+          </div>
+          <div class="media-body">
+            <header class="entry-header">
+              <div class="entry-meta">
+                  <span class="date">
+                    <%
+                      data_from = answer.created_at
+                      data_now = Time.now
+                    %>
+                    <time class="entry-date" datetime="<%= data_from %>">hace <%= distance_of_time_in_words(data_from.utc, data_now.utc) %></time>
+                  </span>
+                  <span class="author vcard">
+                    - Por <span class="url fn n" rel="author" itemprop="author"><% if answer.user.present? %>
+                    <%= answer.user.username %>
+                  <% else %>
+                    usuario no registrado
+                  <% end %></span>
+                  </span>
+                </div>
+            </header>
+
+            <div class="entry-content">
+              <%= answer.content %>
+            </div>
+          </div>
+        </article>
+      <% end %>
+    </div>
+    
+      <% if !@question.status? %>
+        <div class="qa__listings-form">
+          <div class="media">
+            <div class="pull-left">
+              <% if user_signed_in? && current_user.avatar.present? %>
+                <%= image_tag(current_user.avatar, size: "64x64", alt: current_user.username) %>
+              <% elsif user_signed_in? && current_user.username %>
+                <%= image_tag("front/img/avatar.png", size: "64x64", alt: current_user.username) %>
+              <% end %>
+            </div>
+            <div class="media-body">
+              <%= form_for @response do |f| %>
+                <h4>Tu respuesta</h4>
+
+                <div class="form-group">
+                  <%= f.text_area :content, { class: 'form-control', rows: 3, required: "required" } %>
+                  <% if user_signed_in? %>
+                    <%= f.hidden_field :user_id, :value => current_user.id %>
+                  <% end -%>
+                  <%= f.hidden_field :question_id, :value => @question.id %>
+                </div>
+                <div class="form-group">
+                  <%= f.submit 'Publicar tu respuesta', :class => 'btn btn-primary' %>
+                  <% if @question.user && (current_user.id == @question.user_id || current_user.roles.find_by_name("Administrador").present?) %>
+                    <%= link_to "Marcar como resuelto", close_question_path(@question), method: :put, data: { confirm: '¿Está seguro?' } %>
+                  <% end -%>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="alert alert-danger finalized hidden">
+          Has marcado como resuelto tu caso, esperamos sinceramente haber sido de su ayuda.
+        </div>
+        <% else %>
+          <div class="alert alert-danger finalizada">
+            Pregunta finalizada
+          </div>
+        <% end %>
+    
+
+  </div>
+</div>
+<% content_for :footer do %>
+  <%= javascript_include_tag :qa %>
+<% end %>

@@ -1,0 +1,56 @@
+<% title "Mis Preguntas!" %>
+<% content_for :head do %>
+<% end %>
+<% content_for :sidebar do %>
+  <%= render :partial => 'partials/listing/sidebar'  %>
+<% end %>
+<%= render :partial => 'partials/shared/header'  %>
+<div class="qa__listings-container">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Listado de mis preguntas!</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <% if @user_questions.nil? %>
+        <table class="table table-bordered table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Pregunta</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @user_questions.each do |question| %>
+            <tr>
+              <td>
+                <%= link_to(question_path(question), :rel => 'bookmark', :itemprop => "url") do %>
+                  <%= question.title %>
+                <% end %>
+              </td>
+              <td>
+                <% if question.status.present? %>
+                    <i class="fa fa-check-square" style="color: #2ecc71; font-size: 16px;"></i> Resuelto
+                <% else %>
+                  <% if question.status.nil? || question.status == 0 %>
+                    <i class="fa fa-times-circle-o" style="color: #bdc3c7; font-size: 16px;"></i> Pendiente
+                  <% else %>
+                    <i class="fa fa-minus-square-o" style="color: #f39c12; font-size: 16px;"></i> Respondido
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <% else %>
+          <div class="alert alert-warning">
+            Parece que no tienes ninguna pregunta todavía!
+          </div>
+        <% end %>
+    </div>
+  </div>
+</div>
+<% content_for :footer do %>
+  <%#= javascript_include_tag :qa %>
+<% end %>

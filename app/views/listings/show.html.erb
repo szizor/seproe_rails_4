@@ -1,0 +1,291 @@
+<% title @listing.name.capitalize %>
+<% content_for :head do %>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.13&key=AIzaSyAhVRsRgzm2XOrogNN8cKTjiEeNal9H_y0&sensor=true&language=es">
+  </script>
+  <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+  <script type="text/javascript">
+    var publicSpaces = {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "properties": {
+            "title": "<%= @listing.name.capitalize %>",
+            "subTitle": "<%= @listing.subtitle %>",
+            "tag": "tag",
+            "type": "<%= @listing.listing_type.name %>",
+            "is_featured" : <%= @listing.is_featured %>,
+            "street": "<%= @listing.location %>",
+            "locality" : "Guadalajara",
+            "region" : "Jal",
+            "postal" : "<%= @listing.postal %>"
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              <%= @listing.latitude %>,
+              <%= @listing.longitude %>
+            ]
+          }
+        }
+      ]
+    };
+
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'adoptaunespacio', // required: replace example with your forum shortname
+        disqusPublicKey = 'LIZU3sjNbDHygQI7sisVKhBzMfPJ7uuTUP3ENPoRqyL1TsVku9qAw2HxpvGAoNXx';
+    var disqus_config = function () { 
+      this.language = "es_MX";
+    };
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    
+  </script>
+
+<% end %>
+<% content_for :sidebar do %>
+  <%= render :partial => 'partials/listing/sidebar'  %>
+<% end %>
+
+<%= render :partial => 'partials/shared/header'  %>
+<div class="listing__details-container" itemscope itemtype="http://schema.org/CivicStructure">
+    <div class="row">
+      <div class="col-md-9 col-sm-7">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="venu__cover pull-left">
+              <img itemprop="image" src="<%= @listing.cover_image.url(:thumb) %>" alt="" width="75" height="75">
+            </div>
+            <div class="venu__info">
+              <h1 class="venu__info-name" itemprop="name"><%=@listing.name %></h1>
+              <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" class="venu__info-address">
+                <span itemprop="streetAddress"><%=@listing.location %></span>,
+                <span itemprop="postalCode"><%=@listing.postal %></span>
+                <span itemprop="addressLocality">Guadalajara</span>,
+                <span itemprop="addressRegion">Jalisco</span>
+              </div>
+              <div class="venu__info-subtitle">
+                <%=@listing.subtitle %>
+              </div>
+            </div>
+          </div>
+          <% if @listing.description.present? %>
+            <div class="panel-footer">
+              <div class="venu__info-description" itemprop="description">
+                <%=@listing.description %>
+              </div>
+            </div>
+          <% end %>
+          <div class="panel-footer">
+            <ul class="list-inline venu__social-list pull-right">
+              <li class="venu__social-list-facebook">
+                <div class="fb-like" data-href="<%= url_for(:only_path => false) %>" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+              </li>
+              <li class="venu__social-list-twitter">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-via="SEPROE" data-lang="es" data-related="MohammedAlaa" data-hashtags="Guadalajara">Twittear</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+              </li>
+              <li class="venu__social-list-gplus">
+                <!-- Place this tag where you want the share button to render. -->
+                <div class="g-plus" data-action="share" data-annotation="bubble" data-href="<%= url_for(:only_path => false) %>"></div>
+              </li>
+            </ul>
+            <div class="btn btn-danger btn-xs">
+              <i class="fa fa-comments"></i>
+              <a href="/<%= @listing.slug %>/#disqus_thread" class="venu__comments-count" data-disqus-url="/<%= @listing.slug %>">Comentarios!</a>
+            </div>
+            <div class="pluginConnectButton btn btn-default btn-xs">
+              <%= pluralize @listing.reputation_for(:votes).to_i, "voto" %>
+            </div>
+            <% if current_user %>
+
+              <% if current_user.voted_for?(@listing)%>
+                <%= link_to( vote_listing_path(@listing, type: "down"), method: "post", :class => 'btn btn-danger btn-xs' ) do %>
+                  <i class="fa fa-thumbs-down"></i> No me gusta
+                <% end %>
+              <%else%>
+                <%= link_to( vote_listing_path(@listing, type: "up"), method: "post", :class => 'btn btn-success btn-xs' ) do %>
+                  <i class="fa fa-thumbs-up"></i> Me gusta!
+                <% end %>
+              <% end -%>
+              <%#= link_to "dar", vote_listing_path(@listing, type: "up"), method: "post" %>
+              <%#= link_to "quitar", vote_listing_path(@listing, type: "up"), method: "post" %>
+            <% elsif !current_user %>
+              <span>Regístrate para votar.</span>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="venu__tabs">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs">
+            <li><a href="#imgGallery" data-toggle="tab">Galería de imágenes</a></li>
+            <li><a href="#videoGallery" data-toggle="tab">Videos</a></li>
+            <li><a href="#Events" data-toggle="tab">Eventos</a></li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div class="tab-pane active" id="imgGallery">
+              <div id="links">
+                <% if @listing.approved_images.present? %>
+                  <% @listing.approved_images.order('created_at DESC').all.each do |image| %>
+                    <a href="<%= image.image %>" data-gallery>
+                        <img src="<%= image.image.thumb %>" alt="" width="150" height="112">
+                    </a>
+                  <% end %>
+                <% else %>
+                  <div class="alert alert-warning">
+                    <p>Lo sentimos, pero no tenemos ninguna imágen para <strong><%=@listing.name %></strong></p>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <div class="tab-pane" id="videoGallery">
+              <div id="vidLinks">
+                <% if @listing.videos.present? %>
+                  <% @listing.videos.order('created_at DESC').all.each do |video| %>
+                    <a href="#" data-title="<%= video.title %>" data-id="<%= video.url.split("?v=")[1] %>" data-url="<%= video.url %>" data-toggle="modal" data-target="#videoModal">
+                        <img src="http://img.youtube.com/vi/<%= video.url.split("?v=")[1] %>/1.jpg" alt="" width="120" height="90">
+                    </a>
+                  <% end %>
+                <% else %>
+                  <div class="alert alert-warning">
+                    <p>Lo sentimos, pero no tenemos ningun video para <strong><%=@listing.name %></strong></p>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <div class="tab-pane" id="Events">
+              <% if @events.present? %>
+              <div class="table-responsive">
+                <table class="event_listing">
+                  <tbody>
+                    <% @events.each do |event| %>
+                      <tr class="event_listing_item">
+                        <td class="date">
+                          <strong><%= I18n.l event.start_date, :format => :dia_semana %></strong>
+                          <%= I18n.l event.start_date, :format => :event %>
+                        </td>
+                        <td class="info">
+                          <h3><a href="#Event<%= event.id %>" data-eid="<%= event.id %>" class="js-event-title"><%= event.name %></a></h3>
+                          <p><strong>Comienza: </strong> <%= I18n.l event.start_date, :format => :datesformat %> - <strong>Termina: </strong> <%= I18n.l event.end_date, :format => :datesformat %></p>
+                          <div id="Event<%= event.id %>" class="hide">
+                            <%= event.description %>
+                          </div>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+
+              <% else %>
+                <div class="alert alert-warning">
+                  <p>Lo sentimos, pero no tenemos ningún evento próximo en <strong><%=@listing.name %></strong></p>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="venu__comments">
+          <div id="disqus_thread"></div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-5">
+
+        <div class="venu__map" id="venuMap"></div>
+        <% if @listing.adopter.present? %>
+          <div class="venu__section">
+            <h4 class="venu__section-title">Adoptado Por:</h4>
+            <div class="venu__adopter" itemscope itemtype="http://schema.org/Organization">
+              <a href="<%= @listing.adopter.url %>" class="venu__adopter-logo pull-left" target="_blank" title="<%= @listing.adopter.nombre %>">
+                <img src="<%= @listing.adopter.logo %>" alt="" width="60" height="60" itemprop="logo" alt="<%= @listing.adopter.nombre %>">
+              </a>
+              <h3 class="venu__adopter-name" itemprop="name">
+                <a href="<%= @listing.adopter.url %>" target="_blank" title="<%= @listing.adopter.nombre %>">
+                  <%= @listing.adopter.nombre %>
+                </a>
+              </h3>
+              <div class="venu__adopter-giro" itemprop="description"><%= @listing.adopter.giro %></div>
+              <ul class="list-inline venu__adopter-social">
+                <li>
+                  <a href="<%= @listing.adopter.facebook_url %>" target="_blank" title=""><i class="fa fa-facebook-square"></i></a>
+                </li>
+                <li>
+                  <a href="<%= @listing.adopter.twitter_url %>" target="_blank" title=""><i class="fa fa-twitter-square"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        <% else %>
+          <div class="venu__section">
+            <div class="venu__adopt">
+              <p class="text-center">¿Estás interesado en?</p>
+              <%= link_to 'Adoptar un espacio público', adoptar_path(:anchor => @listing.name), :class=>"btn btn-primary btn-block" %>
+            </div>
+          </div>
+        <% end %>
+        <p class="text-center" style="margin-top: 10px;">
+          <%= link_to 'Reportar', reportes_path(:anchor => @listing.name) %>
+        </p>
+      </div>
+    </div>
+</div>
+<% content_for :footer do %>
+  <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+      <!-- The container for the modal slides -->
+      <div class="slides"></div>
+      <!-- Controls for the borderless lightbox -->
+      <h3 class="title"></h3>
+      <a class="prev">‹</a>
+      <a class="next">›</a>
+      <a class="close">×</a>
+      <a class="play-pause"></a>
+      <ol class="indicator"></ol>
+      <!-- The modal dialog, which will be used to wrap the lightbox content -->
+      <div class="modal fade">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title"></h4>
+                  </div>
+                  <div class="modal-body next"></div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default pull-left prev">
+                          <i class="glyphicon glyphicon-chevron-left"></i>
+                          Anterior
+                      </button>
+                      <button type="button" class="btn btn-primary next">
+                          Próximo
+                          <i class="glyphicon glyphicon-chevron-right"></i>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- Modal -->
+<div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoHeaderLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="videoHeaderLabel"></h4>
+      </div>
+      <div class="modal-body">
+        <iframe id="vidFrame" width="538" height="320" src="about:blank" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+  <script src="http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+  <%= javascript_include_tag :listing %>
+<% end %>

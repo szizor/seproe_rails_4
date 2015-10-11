@@ -1,9 +1,8 @@
-# encoding: utf-8
 class Admin::ImagesController < Admin::BaseController
-  load_and_authorize_resource
+  before_action :set_image, only: [:show, :edit, :update, :destroy, :approve]
 
   def index
-    @listing = Listing.find(params[:listing_id])
+    @listing = Listing.friendly.find(params[:listing_id])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -12,8 +11,6 @@ class Admin::ImagesController < Admin::BaseController
   end
   
   def approve
-    @image = Image.find(params[:id])
-    
     @image.approved = true
     @image.save
 
@@ -21,8 +18,6 @@ class Admin::ImagesController < Admin::BaseController
   end
 
   def show
-    @image = Image.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @image }
@@ -38,11 +33,10 @@ class Admin::ImagesController < Admin::BaseController
   end
 
   def edit
-    @image = Image.find(params[:id])
   end
 
   def create
-    @image = Image.new(params[:image])
+    @image = Image.new(image_params)
 
     respond_to do |format|
       if @image.save
@@ -56,11 +50,10 @@ class Admin::ImagesController < Admin::BaseController
   end
 
   def update
-    @image = Image.find(params[:id])
 
     respond_to do |format|
-      if @image.update_attributes(params[:event])
-        listing = Listing.find(params[:listing_id])
+      if @image.update(image_params)
+        listing = Listing.friendly.find(params[:listing_id])
         format.html { redirect_to admin_listing_images_path(listing), notice: 'Image was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,7 +64,6 @@ class Admin::ImagesController < Admin::BaseController
   end
 
   def destroy
-    @image = Image.find(params[:id])
     @image.destroy
 
     respond_to do |format|
@@ -79,4 +71,14 @@ class Admin::ImagesController < Admin::BaseController
       format.json { head :no_content }
     end
   end
+
+  private
+    def set_image
+      @image = Image.find(params[:id])
+    end
+
+    def image_params
+      params.require(:image).permit(:image, :listing_id, :remote_image_url)
+    end
+
 end

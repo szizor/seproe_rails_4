@@ -1,0 +1,23 @@
+<%= form_for [:admin, :listing, @video], :html => {:multipart => true} do |f| %>
+  <% if @video.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@video.errors.count, "error") %> prohibited this video from being saved:</h2>
+      <ul>
+        <% @video.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.hidden_field :listing_id %>
+  <p>
+    <%= f.label :title, "titulo" %>
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :url %>
+    <%= f.text_field :url %>
+  </p>
+  <%= f.hidden_field :user_id, :value => current_user.id%>
+  <p><%= f.submit %></p>
+<% end %>

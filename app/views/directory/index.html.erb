@@ -1,0 +1,94 @@
+<% title "Directorio del Gobierno de Guadalajara" %>
+<% content_for :head do %>
+  <script type="text/javascript">
+    var publicSpaces =  <%= @publicSpaces.to_json.html_safe %>;
+  </script>
+<% end %>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=442503135786308";
+  fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+<% content_for :sidebar do %>
+  <%= render :partial => 'partials/listing/sidebar'  %>
+<% end %>
+<%= render :partial => 'partials/shared/header'  %>
+<div class="directory_container">
+  <div class="page-header">
+    <h1>Directorio <small>dependencias relacionadas con programa AEP</small></h1>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Dirección</th>
+          <th>Web</th>
+          <th>Teléfono</th>
+          <th>Email</th>
+          <th>Social</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Dirección de Parques y Jardines</td>
+          <td>Av. Paseo del Zoológico #500, Col. Huentitán El Bajo</td>
+          <td>NA</td>
+          <td>1201.8800</td>
+          <td><a href="mailto:acpyj@guadalajara.gob.mx">acpyj@guadalajara.gob.mx</a>, <a href="mailto:jcvazquez@guadalajara.gob.mx">jcvazquez@guadalajara.gob.mx</a></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Secretaría de Promoción Económica</td>
+          <td>Francisco de Quevedo #338, Col. Arcos Vallarta, Guadalajara, Jalisco.</td>
+          <td>NA</td>
+          <td>36159483</td>
+          <td><a href="mailto:seproegdl@gmail.com">seproegdl@gmail.com</a></td>
+          <td>
+            <a href="http://twitter.com/seproe_gdl" target="_blank"><i class="fa fa-twitter-square"></i></a> <a href="https://www.facebook.com/pages/Proyectos-Urbanisticos-GDL" target="_blank"><i class="fa fa-facebook-square"></i></a>
+          </td>
+        </tr>
+        <tr>
+          <td>Secretaría de Servicios Públicos Municipales</td>
+          <td>Zaragoza #39, 3er. Piso, Col. Centro, Guadalajara, Jalisco.</td>
+          <td>NA</td>
+          <td>3615.7895, 3818 3600, ext. 3620 y 3200.</td>
+          <td><a href="mailto:serviciospublicosgdl@hotmail.com">serviciospublicosgdl@hotmail.com</a> , <a href="mailto:jcastillom@guadalajara.gob.mx">jcastillom@guadalajara.gob.mx</a></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Dirección de manejo de residuos</td>
+          <td>Marsella #49, 5to. Piso</td>
+          <td><a href="http://portal.guadalajara.gob.mx/programas/centro-historico-limpio/acercade/720" target="_blank">Pagina Web</a></td>
+          <td>3614 5943, 3818 3600 Ext: 3410, 3411</td>
+          <td><a href="mailto:jilopez@guadalajara.gob.mx">jilopez@guadalajara.gob.mx</a></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Seguridad Ciudadana</td>
+          <td>Periférico Norte Manuel Gómez Morín #3229, Col. Jardines de la Barranca, Guadalajara, Jalisco.</td>
+          <td>NA</td>
+          <td>1201 6070 y 1201 6551, 1201 6500</td>
+          <td><a href="mailto:cmercado@guadalajara.gob.mx">cmercado@guadalajara.gob.mx</a> , <a href="mailto:rhsanchez@guadalajara.gob.mx">rhsanchez@guadalajara.gob.mx</a></td>
+          <td>
+            <a href="http://twitter.com/PoliciaGDL" target="_blank"><i class="fa fa-twitter-square"></i></a> <a href="https://www.facebook.com/SeguridadCiudadanaGDL" target="_blank"><i class="fa fa-facebook-square"></i></a>
+          </td>
+        </tr>
+        <tr>
+          <td>SIAPA</td>
+          <td>Av. Dr. R. Michel No. 461 esquina con González Gallo, Col. San Carlos, Sector Reforma, Guadalajara, Jalisco.</td>
+          <td><a href="http://www.siapa.gob.mx/" target="_blank">Pagina Web</a></td>
+          <td>3668 2482, 3837 4272, 3837 4200</td>
+          <td></td>
+          <td>
+            <a href="http://twitter.com/siapagdl" target="_blank"><i class="fa fa-twitter-square"></i></a> <a href="https://www.facebook.com/siapagdl" target="_blank"><i class="fa fa-facebook-square"></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

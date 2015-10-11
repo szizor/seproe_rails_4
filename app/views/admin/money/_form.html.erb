@@ -1,0 +1,40 @@
+<%= form_for [:admin, :listing, @money] do |f| %>
+  <% if @money.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@money.errors.count, "error") %> prohibited this money from being saved:</h2>
+      <ul>
+        <% @money.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.hidden_field :listing_id %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <%= f.hidden_field :adopter_id, :value => current_user.adopter.id if current_user.adopter %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <%= f.label :amount, "Cantidad" %>
+        <%= f.text_field :amount, :class => 'form-control' %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <%= f.label :spent_date, "Fecha del gasto" %>
+        <%= f.datetime_select :spent_date %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <%= f.label :description %>
+        <%= f.text_area :description, :class => 'form-control', :rows => 6 %>
+      </div>
+    </div>
+  </div>
+  <p><%= f.submit "Agregar Gasto", :class => 'btn btn-primary' %></p>
+<% end %>

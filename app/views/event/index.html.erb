@@ -1,10 +1,9 @@
-<% title "Adopta un espacio Guadalajara" %>
+<% title "Calendario de Eventos" %>
 <% content_for :head do %>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.13&key=AIzaSyAhVRsRgzm2XOrogNN8cKTjiEeNal9H_y0&sensor=true&language=es">
-  </script>
-  <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+  <%= stylesheet_link_tag "eventos" %>
   <script type="text/javascript">
     var publicSpaces =  <%= @publicSpaces.to_json.html_safe %>;
+    var allEvents = <%= @events.to_json.html_safe %>;
   </script>
 <% end %>
 <div id="fb-root"></div>
@@ -19,10 +18,13 @@
 <% content_for :sidebar do %>
   <%= render :partial => 'partials/listing/sidebar'  %>
 <% end %>
-<%= render :partial => 'partials/shared/header'  %>
-<%= render :partial => 'partials/listing/map'  %>
-<div class="content-listing">
-  <%= render @listings  %>
+<%= render :partial => 'partials/shared/header' %>
+<div class="documents_container">
+  <div class="page-header">
+    <h1>Calendario <small>de Eventos</small></h1>
+  </div>
+  <div id="calendar"></div>
 </div>
-<%= javascript_include_tag :home %>
-<%= will_paginate @listings %>
+<% content_for :footer do %>
+  <%= javascript_include_tag :eventos %>
+<% end %>

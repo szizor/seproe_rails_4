@@ -1,0 +1,39 @@
+<% title 'Fotos de ' + @listing.name %>
+<% content_for :sidebar do %>
+  <%= render :partial => 'partials/listing/sidebar'  %>
+<% end %>
+<%= render :partial => 'partials/shared/header' %>
+<div class="listing__details-container">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Administrar los eventos</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Fecha de Inicio</th>
+              <th>Fecha de termino</th>
+              <th>Espacio Publico</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @events.each do |event| %>
+            <tr>
+              <td><%= event.name %></td>
+              <td><%= I18n.l event.start_date, :format => :short %></td>
+              <td><%= I18n.l event.end_date, :format => :short %></td>
+              <td><%= event.listing.name %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="panel-footer text-center">
+      <%= link_to 'Crear Nuevo Evento', listing_new_event_path, :class=>"btn btn-primary" %>
+    </div>
+  </div>
+</div>
