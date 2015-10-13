@@ -1,28 +1,22 @@
 # encoding: utf-8
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-ActiveRecord::Base.establish_connection
 
-if Role.all.length != 3
-  ActiveRecord::Base.connection.execute("TRUNCATE roles")
-  roles = Role.create([{ name: 'Administrador' }, { name: 'Adoptante' }, { name: 'Usuario' }])
-end
+acount = Account.create!(name: "Ejemplo 1", subdomain: "ejemplo")
 
-if User.count < 1
-  user = User.create(username: 'admin', email: 'admin@seproe.com', password: '12345678', password_confirmation: '12345678')
-  role = Role.find_by_name("Administrador")
-  user.roles << role
-end
+super_admin = Role.create!(name: "Super Administrador")
+admin     = Role.create!(name: "Administrador")
+adoptant  = Role.create!(name: "Adoptante")
+
+User.create! email: "administrador@compartiendo.com", password: "Compartiendo2015", role_id: super_admin.id
+
+User.create! email: "administrador@ejemplo.com", password: "Compartiendo2015", role_id: admin.id, account_id:  acount.id
+User.create! email: "adoptante@ejemplo.com",     password: "Compartiendo2015", role_id: adoptant.id, account_id:  acount.id
+
 
 if ListingType.all.length != 3
   ActiveRecord::Base.connection.execute("TRUNCATE listing_types")
   listing_types = ListingType.create([{ name: 'Libre' }, { name: 'En Proceso' }, { name: 'Adoptado' }])
 end
 
-puts "Creating listings #{Listing.count}"
 if Listing.count == 0
   [
     {

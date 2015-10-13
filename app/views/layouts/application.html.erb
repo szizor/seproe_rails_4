@@ -9,8 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <%= favicon_link_tag 'favicon.ico' %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag    'application'%>
+    <%= javascript_include_tag 'application'%>
     <%
       # if user_signed_in?
       #   @user_id = current_user.id
@@ -47,25 +47,6 @@
     </script>
     <div class="sidebar-dropdown">
       <%=link_to "Menu", "#"%>
-    </div>
-    <div class="sidebar">
-      <%= link_to image_tag("front/img/logo.png"), root_path, :class => 'sidebar-logo text-center' %>
-      <div class="sidebar-menu">
-        <ul class="nav navbar-nav">
-        <% if user_signed_in? %>
-        <!-- LOGGED IN -->
-          <%= render :partial => "partials/user_menu/administrador" %>
-        <!-- END LOGGED IN -->
-        <% else %>
-        <!-- NOT LOGGED IN -->
-          <li><a href="#login" data-toggle="modal" data-target="#registerModal"><i class="fa fa-user"></i><span class="menu-nav__label">Regístrate</span></a></li>
-          <li><a href="#register" data-toggle="modal" data-target="#loginModal"><i class="fa fa-gears"></i><span class="menu-nav__label">Login</span></a></li>
-        <!-- NOT LOGGED IN END -->
-        <% end %>
-          <li><a href="#contact" data-toggle="modal" data-target="#contactModal"><i class="fa fa-comments"></i><span class="menu-nav__label">Contáctanos</span></a></li>
-        </ul>
-      </div>
-      <%= yield(:sidebar) %>
     </div>
     <div class="content">
       <%= yield %>

@@ -10,7 +10,12 @@
  *
  *= require_self
  *= require front/css/app
- *= require front/css/vendor/bootstrap.min
+
+ *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+ *= require dataTables/extras/dataTables.responsive
+ *= require bootstrap-material-design
+ *= require jasny-bootstrap.min
+
  *= require front/css/icons/elusive-webfont
  *= require front/css/icons/font-awesome
  *= require front/css/plugins/hint

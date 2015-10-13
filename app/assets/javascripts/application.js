@@ -12,7 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require front/vendor/bootstrap.min
+//= require bootstrap-sprockets
+//= require dataTables/jquery.dataTables
+//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+//= require dataTables/extras/dataTables.responsive
+//= require bootstrap-material-design
+//= require jasny-bootstrap.min
 //= require front/plugins/jquery.fastLiveFilter
 //= require front/plugins/markerclusterer_compiled
 //= require front/app

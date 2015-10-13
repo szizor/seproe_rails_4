@@ -1,8 +1,18 @@
 Rails.application.routes.draw do
+
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout", sign_up: "register"},
                    controllers: {omniauth_callbacks: "omniauth_callbacks", sessions: 'sessions'}
 
-  #devise_for :users, :controllers => {sessions: 'sessions'}
+  scope "/super_admin" do
+    resources :users
+    resources :accounts
+  end
+
+  get 'home_admin/index'
+  get 'home_super_admin/index'
+  get 'home_adoptant/index'
+  
+  #----------
 
   resources :users
   resources :reports
