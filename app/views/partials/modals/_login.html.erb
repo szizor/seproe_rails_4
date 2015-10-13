@@ -5,12 +5,13 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="loginModalLabel">Iniciar sesión</h4>
       </div>
-        <%= form_for(resource, :as => resource_name,
-                      :url => user_session_path,
+        <%= form_for resource, 
+                      :as => resource_name,
+                      :url => session_path(resource_name),
                       :html => {:id => "sign_in_user"},
                       :format => :json,
                       :remote => true,
-                      :class => "form-signin" ) do |f| %>
+                      :class => "form-signin" do |f| %>
         <div class="modal-body">
           <div class="row">
           <div class="col-md-12">
@@ -39,7 +40,7 @@
             <div class="col-md-6">
               <div class="login-form-main">
                 <div class="form-group">
-                  <%= f.text_field :username, :autofocus => true, :class => "form-control", :placeholder =>"Nombre de Usuario" %>
+                  <%= f.text_field :email, :autofocus => true, :class => "form-control", :placeholder =>"Nombre de Usuario" %>
                 </div>
                 <div class="form-group">
                   <%= f.password_field :password, :class => "form-control", :placeholder =>"contraseña"%>

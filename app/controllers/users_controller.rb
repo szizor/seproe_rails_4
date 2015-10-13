@@ -1,41 +1,61 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
-  layout "admin"
+
+before_action :set_user, only: [:edit, :update, :destroy]
 
   def index
-    @users = User.page(params[:page])
-  end
-
-  def new
-  end
-
-  def create
-    if @user.save
-      session[:user_id] = @user.id
-      # redirect_to root_url, :notice => "Thank you for signing up! You are now logged in."
-      return render :json => {:success => true, :notice => "Gracias por firmarse! A sido conectado."}
-    else
-      render :action => 'new'
-    end
+    @users = policy_scope(User)
+    authorize User
   end
 
   def edit
-    @user = User.find(params[:id])
+    authorize @user    
+  end
+
+  def new
+    @user = User.new
+    authorize @user    
   end
 
   def update
-    @user = User.find(params[:id])
-
-    if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
+    authorize @user    
+    #Remove password params if they are empty, then won't be updted
+    if params[:user][:password].blank? 
       params[:user].delete(:password)
       params[:user].delete(:password_confirmation)
-    end
-    if @user.update_attributes(params[:user])
-      return render :json => {:success => true, :notice => "Perfil editado exitosamente"}
-      # redirect_to root_url, :notice => "Your profile has been updated."
+    end    
+    if @user.update(user_params)
+      redirect_to users_path, notice: 'Usuario actualizado correctamente .'
     else
-      render :action => 'edit'
+      render :edit
     end
   end
+
+  def create
+    @user = User.new(user_params)
+    authorize @user
+    if @user.save
+      redirect_to users_path, notice: 'Usuario creado correctamente .'
+    else
+      render :new
+    end
+  end
+
+  def destroy
+    authorize @user    
+    @user.destroy
+    respond_to do |format|
+      format.html { redirect_to users_url, notice: 'Usuario destruido correctamente .' }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    def set_user
+      @user = User.find(params[:id])
+    end
+    def user_params
+      params.require(:user).permit( :email, :password, :password_confirmation,:role_id, :account_id )
+    end
+
 
 end
