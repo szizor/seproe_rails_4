@@ -1,0 +1,47 @@
+<nav class="navbar navbar-default margin-bottom">
+  <div class="container-fluid">
+
+    <div class="container">
+
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Compartiendo Espacios</a>
+      </div>
+
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="<%= "active" if request.path == home_super_admin_index_path  %>">
+            <a href="/" class="">
+             <span class="left">INICIO</span> 
+           </a>
+          </li>
+          <li class="<%= "active" if request.path.include? users_path  %>">
+            <a href="<%= users_path %>">
+             <span class="left">USUARIOS</span> 
+           </a>
+          </li>
+          <li class="<%= "active" if request.path.include? accounts_path  %>">
+            <a href="<%= accounts_path %>">
+             <span class="left">MUNICIPIOS</span> 
+           </a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav pull-right">
+          <!-- class="active" -->
+          <li class="">
+            <a href="<%= destroy_user_session_path%>" class="">
+             <span class="left">LOG OUT</span> 
+           </a>
+          </li>
+        </ul>
+      </div>
+
+    </div><!--/.nav-collapse -->
+
+  </div><!--/.container-fluid -->
+</nav>

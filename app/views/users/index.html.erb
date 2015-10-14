@@ -1,65 +1,35 @@
-<section class="container clearfix main_section">
-  <div id="main_content_outer" class="clearfix">
-    <div id="main_content">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h4 class="panel-title">Usarios</h4>
-            </div>
-            <div class="panel_controls">
-              <div class="row">
-                <div class="col-sm-4">
-                  <label for="table_search">Search:</label>
-                  <input type="text" id="table_search" class="form-control">
-                </div>
-                <div class="col-sm-3 col-xs-6">
-                  <label for="un_member">Role:</label>
-                  <select name="un_member" id="un_member" class="form-control">
-                    <option value="">---</option>
-                    <option value="yes_SA">Super Admin</option>
-                    <option value="no_Public">Usario Public</option>
-                    <option value="some_Adoptor">Adoptor</option>
-                  </select>
-                </div>
-                <div class="col-sm-3 col-xs-6">
-                  <label>&nbsp;</label>
-                  <button class="btn btn-default btn-sm" id="clear-filter">Clear filters</button>
-                </div>
-              </div>
-            </div>
-            <table id="resp_table" class="table toggle-square" data-filter="#table_search" data-page-size="40">
-              <thead>
-                <tr>
-                  <th data-toggle="true">Username</th>
-                  <th data-hide="email,role">Email</th>
-                  <th>Role</th>
-                  <th class="actions text-center">Opciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% for user in @users %>
-                  <tr>
-                    <td><%= user.username %></td>
-                    <td><%= user.email %></td>
-                    <td><%= user.roles.map(&:name).join(',') %></td>
-                    <td class="actions text-center">
-                      <%= link_to edit_user_path(user), { class: 'btn btn-primary' } do %>
-                        <span class="icon-edit"></span> Edit
-                      <% end %>
-                      <a href="#" class="btn btn-danger"><span class="icon-remove"></span> Delete</a>
-                      <%#= link_to user, :confirm => "Are you sure?", :method => :delete, { class: 'btn btn-danger' } %>
-                        <!-- <span class="icon-remove"></span> Delete -->
-                      <%# end %>
-                    </td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="container">
+
+  <div class="col-md-12 text-center title-bar-blue">
+    <h3>
+    	Usuarios
+    </h3>
   </div>
-</section>
-<%= will_paginate @users %>
+
+  <table class="table datatable display responsive no-wrap">
+  	<thead>
+  		<tr>
+  			<th> Email </th>
+  			<th> Role </th>
+  			<th> Municipio </th>
+  			<th> Acciones </th>
+  		</tr>
+  	</thead>
+  	<tbody>
+  		<% @users.each do |user| %>
+  			<tr>
+  				<td><%= user.email %></td>
+  				<td><%= user.role.name %></td>
+  				<td><%= user.display_account %></td>
+  				<td>
+  					<%= link_to " Editar ", edit_user_path(user) %> 
+  					<%= link_to " Borrar ", user_path(user), method: :delete, data: { confirm: "¿Está seguro que desea borrar el producto '#{user.email}'?" } %></td>
+  			</tr>
+  		<% end %>
+  	</tbody>
+  </table>		
+
+  <div class="col-md-12 text-right ">
+  	<%= link_to "NUEVO",new_user_path, class: "btn btn-primary" %>
+  </div>  
+</div>

@@ -1,0 +1,56 @@
+<br/>
+<div class="col-xs-10 col-xs-offset-1  text-center">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Iniciar Sesión
+    </div>
+
+    <div class="panel-body">
+    <%= form_for resource, as: resource_name, url: session_path(resource_name), :html => { :class => "form-horizontal user-form" }  do |f| %>
+
+      <div class="form-group field">
+        <%= f.label :email, "Correo" , class: "col-sm-2 control-label"%>
+        <div class="col-sm-10">
+          <%= f.email_field :email, class: "form-control", id: "inputEmail", autofocus: true %>
+        </div>
+      </div>
+
+
+      <div class="form-group field">
+        <%= f.label :password, "Contraseña", class: 'col-sm-2 control-label'%>
+        <div class="col-sm-10">
+          <%= f.password_field :password, class: "form-control", id: "inputPassword"%>
+        </div>
+      </div>
+
+      <div class="actions col-md-12">
+        <div class="col-xs-12 text-right">
+          <% if devise_mapping.rememberable? -%>
+            <div class="field">
+              <%= f.check_box :remember_me %>
+              <%= f.label :remember_me, "Recordarme" %>
+            </div>
+          <% end -%>        
+          <%= f.submit "Iniciar Sesión", class: "btn btn-primary"  %>
+          <br/>
+          <%= render "devise/shared/links" %>        
+        </div>
+
+        <div class="col-xs-6 col-xs-offset-3 ">
+          <div class="col-md-6">
+            <%= link_to user_omniauth_authorize_path(:twitter), :class => "btn btn-info btn-twitter btn-block" do %>
+              <i class="fa fa-twitter"></i>Twitter?
+            <% end %>
+          </div>
+          <div class="col-md-6">
+            <%= link_to user_omniauth_authorize_path(:facebook), :class => "btn btn-primary btn-facebook btn-block" do %>
+              <i class="fa fa-facebook"></i>Facebook?
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+</div>

@@ -1,0 +1,60 @@
+.bg-secondary-navbar{
+	background-color: #1f2532;
+	color: #999999;
+	button, button:focus, button:hover, button:active{
+		background-color: #1f2532;
+		color: #dddddd;
+	}
+}
+.padding-secondary{
+	margin-top:    15px;
+	margin-bottom: 15px;
+}
+.padding-secondary-items{
+	padding-top:   20px;
+}
+.secondary-container{
+
+	padding-left:  1px !important;
+	padding-right: 1px !important;
+
+	a, a:hover, button, button:focus, button:hover, button:active{
+		text-decoration: none;
+	}
+
+	a{
+		font-family: arial;
+		font-size: 10px;
+		color: #dddddd;
+	}
+
+	a:hover{
+		color: #ffffff;
+	}	
+
+	.secodary-item{
+		background: #999999;
+		border: solid 1px black;
+		-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
+		border-radius: 10px;
+	}
+}
+.padding-secondary-btn{
+	padding-top: 10px;
+	margin-top: 9px;
+	margin-bottom: 15px;
+}
+
+@media only screen and (max-width : 992px) {
+	.padding-secondary{
+		margin-top:   0 !important;
+	}
+
+}
+@media only screen and (max-width : 768px) {
+	.padding-secondary{
+		margin-bottom:   0 !important;
+	}
+
+}

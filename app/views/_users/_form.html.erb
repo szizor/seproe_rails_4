@@ -1,0 +1,59 @@
+<section class="container clearfix main_section">
+  <div id="main_content_outer" class="clearfix">
+    <div id="main_content">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">Editar Usario</h4>
+            </div>
+            <div class="panel-body">
+              <%= form_for @user do |f| %>
+              <%= f.error_messages %>
+              <div class="row">
+                <div class="col-sm-6">
+                  <%= f.label :username %>
+                  <%= f.text_field :username, { class: 'form-control' } %>
+                </div>
+                <div class="col-sm-6 col-xs-6">
+                  <%= f.label :email, "Email Address" %>
+                  <%= f.text_field :email, { class: 'form-control' } %>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <%= f.label :password %>
+                  <%= f.password_field :password, { class: 'form-control' } %>
+                </div>
+                <div class="col-sm-6 col-xs-6">
+                  <%= f.label :password_confirmation, "Confirm Password" %>
+                  <%= f.text_field :password_confirmation, { class: 'form-control' } %>
+                </div>
+              </div>
+              <% if is_admin? %>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <%= f.label :role, "Role" %>
+                    <%= hidden_field_tag "user[role_ids][]", nil%>
+                    <% Role.all.each do |role| %>
+                      <label class="checkbox">
+                          <%= radio_button_tag "user[role_ids][]", role.id, @user.role_ids.include?(role.id), id: dom_id(role) %>
+                          <%= role.name %>
+                      </label>
+                    <% end %></div>
+                </div>
+              <% end %>
+              <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                  <%= f.submit (@user.new_record? ? "Sign up" : "Actualizar"), { class: 'btn btn-primary' } %>
+                </div>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

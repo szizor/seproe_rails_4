@@ -1,28 +1,3 @@
-<% title "Adopta un espacio Guadalajara" %>
-<% content_for :head do %>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.13&key=AIzaSyAhVRsRgzm2XOrogNN8cKTjiEeNal9H_y0&sensor=true&language=es">
-  </script>
-  <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
-  <script type="text/javascript">
-    var publicSpaces =  <%= @publicSpaces.to_json.html_safe %>;
-  </script>
-<% end %>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=442503135786308";
-  fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-</script>
-<% content_for :sidebar do %>
-  <%= render :partial => 'partials/listing/sidebar'  %>
-<% end %>
-<%= render :partial => 'partials/shared/header'  %>
-<%= render :partial => 'partials/listing/map'  %>
-<div class="content-listing">
-  <%= render @listings  %>
-</div>
-<%= javascript_include_tag :home %>
-<%= will_paginate @listings %>
+<%= render 'shared/secondary_navbar'%>
+
+<%= render 'shared/search_bar'%>

@@ -24,6 +24,15 @@
 //= require front/login
 
 $(document).ready(function() {
+  $('.datatable').DataTable({
+    responsive: true,
+      autoWidth: false,
+    "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.9/i18n/Spanish.json"
+        }
+    
+  });
+  $.material.init()  
   if ($('.pagination').length) {
     $(window).scroll(function() {
       var url = $('.pagination .next_page').attr('href');

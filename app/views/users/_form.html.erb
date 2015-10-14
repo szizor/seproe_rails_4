@@ -1,59 +1,102 @@
-<section class="container clearfix main_section">
-  <div id="main_content_outer" class="clearfix">
-    <div id="main_content">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h4 class="panel-title">Editar Usario</h4>
-            </div>
-            <div class="panel-body">
-              <%= form_for @user do |f| %>
-              <%= f.error_messages %>
-              <div class="row">
-                <div class="col-sm-6">
-                  <%= f.label :username %>
-                  <%= f.text_field :username, { class: 'form-control' } %>
-                </div>
-                <div class="col-sm-6 col-xs-6">
-                  <%= f.label :email, "Email Address" %>
-                  <%= f.text_field :email, { class: 'form-control' } %>
-                </div>
+<div class="col-xs-12">
+  <%= form_for @user, :html => { :class => "form-horizontal user-form" }  do |f| %>
 
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <%= f.label :password %>
-                  <%= f.password_field :password, { class: 'form-control' } %>
-                </div>
-                <div class="col-sm-6 col-xs-6">
-                  <%= f.label :password_confirmation, "Confirm Password" %>
-                  <%= f.text_field :password_confirmation, { class: 'form-control' } %>
-                </div>
-              </div>
-              <% if is_admin? %>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <%= f.label :role, "Role" %>
-                    <%= hidden_field_tag "user[role_ids][]", nil%>
-                    <% Role.all.each do |role| %>
-                      <label class="checkbox">
-                          <%= radio_button_tag "user[role_ids][]", role.id, @user.role_ids.include?(role.id), id: dom_id(role) %>
-                          <%= role.name %>
-                      </label>
-                    <% end %></div>
-                </div>
-              <% end %>
-              <div class="row">
-                <div class="col-sm-12 col-xs-12">
-                  <%= f.submit (@user.new_record? ? "Sign up" : "Actualizar"), { class: 'btn btn-primary' } %>
-                </div>
-              </div>
-              <% end %>
-            </div>
-          </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Información General
+    </div>
+
+    <div class="panel-body">
+
+    <% if @user.new_record? %>
+      <div class="form-group field">
+        <label for="inputRole" class="col-sm-2 control-label">
+          Role
+        </label>
+        <div class="col-sm-10">
+          <%= select(:user, :role_id,  Role.order(name: :asc).collect {|p| [ p.name, p.id ] }, 
+          { include_blank: false}, class: "form-control RolePicker", id: "inputRole")%> 
         </div>
       </div>
-    </div>
+    <% else %>
+      <div class="form-group field">
+        <label for="inputRole" class="col-sm-2 control-label">
+          Role
+        </label>
+        <div class="col-sm-10 padding-top-sm">
+          <%= @user.role.name %>
+        </div>
+      </div>
+    <%end%>
+    
+    <% if @user.new_record? %>
+      <div class="form-group field AccountField SelectAccountField" id="account_section">
+        <label for="inputAccount" class="col-sm-2 control-label">
+          Municipio
+        </label>
+        <div class="col-sm-10">
+          <%= select(:user, :account_id, Account.all.collect {|p| [ p.name, p.id ] }, { include_blank: false}, class: "form-control", id: "inputAccount")%> 
+        </div>
+      </div>
+    <%end%>
+
+    <% unless @user.new_record? %>
+        <div class="form-group field">
+          <%= f.label "Municipio",  class: 'col-sm-2 control-label'%>
+          <div class="col-sm-10 padding-top-sm">
+            <%= @user.account.name rescue "N/A"%>
+          </div>
+        </div>
+        <br/>
+    <%end%>
+           
+
+      <div class="form-group field">
+        <%= f.label :email, "Correo" , class: "col-sm-2 control-label"%>
+        <div class="col-sm-10">
+          <%= f.email_field :email, class: "form-control", id: "inputEmail"%>
+          <span class="error-message">
+            <%= "#{@user.errors[:email].join(" / ")}".html_safe%>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group field">
+        <%= f.label :password, "Password", class: 'col-sm-2 control-label'%>
+        <div class="col-sm-10">
+          <%= f.password_field :password, class: "form-control", id: "inputPassword"%>
+           <span class="error-message">
+            <%= "#{@user.errors[:password].join(" / ")}".html_safe%>
+          </span>
+        </div>
+      </div>
+
+
+      <div class="form-group field">
+        <%= f.label :password_confirmation, "Password Confirmation", class: "col-sm-2 control-label"%>
+        <div class="col-sm-10">
+          <%= f.password_field :password_confirmation, class: "form-control", id: "inputPasswordConfirm"%>
+          <span class="error-message">
+            <%= "#{@user.errors[:password_confirmation].join(" / ")}".html_safe%>
+          </span>
+        </div>
+      </div>
+
+      <div class="col-xs-12 text-right">
+
+        <%= link_to ' Cancelar  ', (request.referrer || users_path), class: "btn btn-danger" %>      
+
+        <%= f.submit "Guardar", class: "btn btn-add" %>
+
+      </div>
+
   </div>
-</section>
+
+  <% end %>
+
+</div>
+</div>
+
+
+
+

@@ -1,0 +1,51 @@
+.margin-bottom-zero{
+	margin-bottom: 0;
+}
+.font-lg{
+  font-size: 18px;
+}
+/* ----  old styles ---- */
+
+$experimental-support-for-opera : false;
+$experimental-support-for-khtml : false;
+
+.navbar-toggle {
+  border: 1px solid #fff;
+}
+.navbar-toggle .icon-bar {
+  background-color: #fff
+}
+
+@media screen and (max-width:768px){
+  .map-canvas {
+    height: 300px;
+  }
+  .map-options .btn {
+    padding: 6px 3px;
+  }
+  .navbar-collapse .navbar-nav > li {
+    float: none
+  }
+  .sidebar .navbar-nav > .dropdown,
+  .sidebar .sidebar-menu .navbar-nav > li > .dropdown-toggle
+  {
+    width: 120px !important;
+  }
+  .sidebar {
+    .navbar-nav .open .dropdown-menu {
+      position: absolute;
+      background-color: #fff
+    }
+  }
+}
+
+@media screen and (max-width:992px){
+  div.content {margin-left: 0}
+}
+
+.req:after{ 
+  content: "*";
+  font-size: 14px;
+  color: #cc0000;
+  padding-left: 4px;
+ }

@@ -22,5 +22,10 @@ module Seproerails4
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    ENV["TWITTER_CONSUMER_KEY"] = "rwKZJPM87WKHsxxoLoq69DmF3"
+    ENV["TWITTER_CONSUMER_SECRET"] = "r64dn1k4qjmUDoNdJfSQEGiBQzfn27YQAe7Yy0sfOLjcGYb4Il"
+    ENV["FACEBOOK_CONSUMER_KEY"] = "1402222820032002"
+    ENV["FACEBOOK_CONSUMER_SECRET"] = "40fddf40fd76a66021475dd544480226"
+
   end
 end
