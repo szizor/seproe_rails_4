@@ -1,6 +1,5 @@
 # encoding: utf-8
 class Admin::ProviderCategoriesController < Admin::BaseController
-  load_and_authorize_resource
   def index
     @provider_categories = ProviderCategory.all
   end
