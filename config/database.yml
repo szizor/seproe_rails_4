@@ -12,6 +12,5 @@ test:
 
 production:
   adapter: postgresql
-  database: seproe_rails4_prod
   encoding: unicode
   pool: 5
