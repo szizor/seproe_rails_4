@@ -17,3 +17,18 @@
 .navbar.navbar, .navbar-obscure.navbar {
     background-color: #252a32 !important;
 }
+.navbar .navbar-nav > li > a {
+    color: inherit;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.padding-top-sm{
+	padding-top: 10px !important;
+}
+.padding-bottom-sm{
+	padding-bottom: 10px !important;
+}
+.padding-sm-sides{
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+}

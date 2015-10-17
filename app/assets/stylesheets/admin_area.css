@@ -9,8 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require bootstrap/bootstrap.min
- *= require admin/todc-bootstrap.min
  *= require admin/plugins/bootstrap-switch
  *= require admin/plugins/ebro_bootstrapSwitch
  *= require admin/plugins/jquery.fileupload-ui
@@ -21,6 +19,8 @@
  *= require admin/theme/color_1
  */
 
+@import "bootstrap-sprockets";
+@import "bootstrap";
 @import '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css';
 .graph__effective-adoption {
   margin: 17px auto
