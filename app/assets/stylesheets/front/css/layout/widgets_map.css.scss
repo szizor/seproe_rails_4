@@ -2,7 +2,7 @@
 	position: relative;
 }
 .map-canvas {
-	height: 384px;
+	height: 570px;
 	  -webkit-transition: all 0.3s ease-out;
      -moz-transition: all 0.3s ease-out;
        -o-transition: all 0.3s ease-out;
@@ -17,12 +17,12 @@
 	width: 100%;
 }
 .map-options .btn-group {
-	background-color: rgba(27,33,41,.9);
+	background-color: #252a32;
 	-webkit-border-radius: 5px 5px 0 0;
           border-radius: 5px 5px 0 0;
 }
 .map-options .btn-group .btn {
-	color: #fff;
+	color: #fff !important;
 	font-size: 12px;
 	font-style: normal;
 }

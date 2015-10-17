@@ -1,35 +1,48 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta name="viewport" content="width=500, initial-scale=1">
-  <title>CompartiendoEspacios</title>
-  <%= stylesheet_link_tag    'application'%>
-  <%= javascript_include_tag 'application'%>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+	<head>
+		  <meta name="viewport" content="width=500, initial-scale=1">
+		  <title>
+		  	Compartiendo Espacios
+		  </title>
+		  <%= stylesheet_link_tag    'application'%>
+		  <%= javascript_include_tag 'application'%>
+		  <%= csrf_meta_tags %>
+		  <%= favicon_link_tag 'favicon.ico' %>
+		  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.13&key=AIzaSyAhVRsRgzm2XOrogNN8cKTjiEeNal9H_y0&sensor=true&language=es">
+		  </script>
+  		  <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+		  <script type="text/javascript">
+		    var publicSpaces =  <%= @publicSpaces.to_json.html_safe %>;
+		  </script>
 
-	<%if notice %>
-		<div class="alert alert-info alert-dismissible margin-bottom-zero" role="alert">
-		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		  <strong>Información:</strong> <%= notice %>
-		</div>
-	<% elsif alert %>
-		<div class="alert alert-danger alert-dismissible margin-bottom-zero" role="alert">
-		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		  <strong>Peligro:</strong> <%= alert %>
-		</div>
-	<%end%>
 
-	<% if !user_signed_in? %>
-		<%= render "shared/guest"%>
-	<% elsif current_user.adoptant? %>
-		<%= render "shared/templates/adoptant/layout"%>
-	<% elsif current_user.admin? %>
-		<%= render "shared/templates/admin/layout"%>
-	<% elsif current_user.super_admin? %>
-		<%= render "shared/templates/super_admin/layout"%>
-	<% end %>
+  </script>
 
-</body>
+	</head>
+	<body>
+
+		<%if notice %>
+			<div class="alert alert-info alert-dismissible margin-bottom-zero" role="alert">
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			  <strong>Información:</strong> <%= notice %>
+			</div>
+		<% elsif alert %>
+			<div class="alert alert-danger alert-dismissible margin-bottom-zero" role="alert">
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			  <strong>Peligro:</strong> <%= alert %>
+			</div>
+		<%end%>
+
+		<% if !user_signed_in? %>
+			<%= render "shared/guest"%>
+		<% elsif current_user.adoptant? %>
+			<%= render "shared/templates/adoptant/layout"%>
+		<% elsif current_user.admin? %>
+			<%= render "shared/templates/admin/layout"%>
+		<% elsif current_user.super_admin? %>
+			<%= render "shared/templates/super_admin/layout"%>
+		<% end %>
+
+	</body>
 </html>

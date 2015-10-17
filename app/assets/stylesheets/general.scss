@@ -4,6 +4,12 @@
 .font-lg{
   font-size: 18px;
 }
+.font-slg{
+  font-size: 25px;
+}
+.padding-panel{
+  padding-top: 30px;
+}
 /* ----  old styles ---- */
 
 $experimental-support-for-opera : false;
@@ -17,9 +23,6 @@ $experimental-support-for-khtml : false;
 }
 
 @media screen and (max-width:768px){
-  .map-canvas {
-    height: 300px;
-  }
   .map-options .btn {
     padding: 6px 3px;
   }
@@ -40,7 +43,9 @@ $experimental-support-for-khtml : false;
 }
 
 @media screen and (max-width:992px){
-  div.content {margin-left: 0}
+  div.content {
+    margin-left: 0
+  }
 }
 
 .req:after{ 
