@@ -11,14 +11,14 @@ var state = "Guadalajara, Jalisco",
     infoTemplate = document.getElementById("infobox"),
     markerIcons = {
       normal: {
-        Libre: "<%= asset_path('/front/map/free.png') %>",
-        EnProcesso: "<%= asset_path('/front/map/pending.png') %>",
-        Adoptado: "<%= asset_path('/front/map/adopted.png') %>"
+        Libre: "<%= asset_url('front/map/free.png') %>",
+        EnProcesso: "<%= asset_url('front/map/pending.png') %>",
+        Adoptado: "<%= asset_url('front/map/adopted.png') %>"
       },
       featured: {
-        Libre: "<%= asset_path('/front/map/free_featured.png') %>",
-        EnProcesso: "<%= asset_path('/front/map/pending_featured.png') %>",
-        Adoptado: "<%= asset_path('/front/map/adopted_featured.png') %>"
+        Libre: "<%= asset_url('front/map/free_featured.png') %>",
+        EnProcesso: "<%= asset_url('front/map/pending_featured.png') %>",
+        Adoptado: "<%= asset_url('front/map/adopted_featured.png') %>"
       }
     },
     mapStyle = [{
@@ -231,15 +231,15 @@ function load_spaces(results) {
             html: infoTemplate
         });
         var styles = [[{
-            url: "/assets/front/map/f1.png",
+            url: "<%= asset_url('front/map/f1.png') %>",
             height: 53,
             width: 53
           }, {
-            url: "/assets/front/map/f2.png",
+            url: "<%= asset_url('front/map/f2.png') %>",
             height: 56,
             width: 56
           }, {
-            url: "/assets/front/map/f3.png",
+            url: "<%= asset_url('front/map/f3.png') %>",
             height: 66,
             width: 66
           }]];

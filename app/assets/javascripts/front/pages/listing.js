@@ -2,9 +2,9 @@ var myLatlng = new google.maps.LatLng(publicSpaces.features[0].geometry.coordina
     mapOptions,
     markers = [],
     markerIcons = {
-        Libre: '/assets/front/map/marker_free.png',
-        featured: '/assets/front/map/marker_featured.png',
-        Adoptado: '/assets/front/map/marker_adopted.png'
+        Libre: "<%= asset_url('front/map/marker_free.png') %>",
+        featured: "<%= asset_url('front/map/marker_featured.png') %>",
+        Adoptado: "<%= asset_url('front/map/marker_adopted.png') %>"
     },
     mapStyle = [{
         "featureType": "water",
