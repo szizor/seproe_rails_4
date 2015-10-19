@@ -17,11 +17,6 @@
 .navbar.navbar, .navbar-obscure.navbar {
     background-color: #252a32 !important;
 }
-.navbar .navbar-nav > li > a {
-    color: inherit;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
 .padding-top-sm{
 	padding-top: 10px !important;
 }
@@ -31,4 +26,29 @@
 .padding-sm-sides{
 	padding-left: 10px !important;
 	padding-right: 10px !important;
+}
+.padding-xm-sides{
+	padding-left: 5px !important;
+	padding-right: 5px !important;
+}
+.padding-bottom-zero{
+	padding-bottom: 0 !important;
+}
+.font-lg{
+  font-size: 15px;
+}
+.font-slg{
+  font-size: 20px;
+}
+.font-navbar-btn{
+	font-size: 12px;
+}
+.padding-top-zero{
+	padding-top: 0px !important;
+}
+.margin-top-sm{
+	margin-top: 8px
+}
+.navbar-brand{
+	padding-bottom: 0px !important;
 }
