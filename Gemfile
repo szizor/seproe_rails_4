@@ -34,6 +34,7 @@ gem "acts_as_list"
 gem "will_paginate"
 gem "geocoder"
 gem 'rails_12factor', group: :production
+gem "font-awesome-rails"
 
 
 group :development, :test do

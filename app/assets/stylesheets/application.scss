@@ -2,7 +2,6 @@
  *= require_self
  *= require front/css/app
  *= require front/css/icons/elusive-webfont
- *= require front/css/icons/font-awesome
  *= require front/css/plugins/hint
  *= require front/css/plugins/blueimp-gallery
  *= require front/css/plugins/bootstrap-image-gallery
@@ -41,6 +40,7 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "font-awesome";
 @import "primary_navbar";
 @import "secondary_navbar";
 @import "search";
