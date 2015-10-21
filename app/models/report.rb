@@ -17,7 +17,8 @@ class Report < ActiveRecord::Base
 				WHERE
 					status = 'Resuelto'
 				GROUP BY
-					MONTH(updated_at)
+					EXTRACT(MONTH FROM updated_at),
+					updated_at
 				ORDER BY date ASC
 			}
 

@@ -42,6 +42,8 @@ class UserPolicy
     def resolve
       if user.present? && user.super_admin?
         scope.all
+      elsif user.present? && user.admin?
+        user.account.users
       end
     end
   end

@@ -3,29 +3,25 @@ Rails.application.routes.draw do
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout", sign_up: "register"},
                    controllers: {omniauth_callbacks: "omniauth_callbacks", sessions: 'sessions'}
 
-  scope "/super_admin" do
+  namespace :super_admin do
+    get 'home' => 'home#index'
     resources :users
     resources :accounts
   end
-
-  get 'home_admin/index'
-  get 'home_super_admin/index'
-  get 'home_adoptant/index'
   
-  #----------
-
-  resources :users
   resources :reports
   resources :document, :only => [:index] do
     get :download
   end
+  
   resources :home, :only => [:index, :crate_adopter] do
     post :create_adopter, :on => :collection
     get :adoptar, :on => :collection
   end
 
   namespace :admin do
-    resources :dashboard, :only => [:index]
+    get 'home' => 'home#index'
+    #resources :dashboard, :only => [:index]
     resources :documents
     resources :providers
     resources :provider_categories

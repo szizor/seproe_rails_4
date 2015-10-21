@@ -21,8 +21,8 @@
           <td><%= account.name %></td>
           <td><%= account.subdomain %></td>
           <td>
-            <%= link_to 'Editar', edit_account_path(account) %>
-            <%= link_to 'Borrar', account, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <%= link_to 'Editar', edit_super_admin_account_path(account) %>
+            <%= link_to 'Borrar', super_admin_account_path(account), method: :delete, data: { confirm: 'Are you sure?' } %>
           </td>
         </tr>
       <% end %>
@@ -30,6 +30,6 @@
   </table>
 
   <div class="col-md-12 text-right ">
-    <%= link_to 'NUEVO', new_account_path, class: "btn btn-primary" %>
+    <%= link_to 'NUEVO', new_super_admin_account_path, class: "btn btn-primary" %>
   </div>  
 </div>

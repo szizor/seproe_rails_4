@@ -114,7 +114,7 @@ class CreateMainMigration < ActiveRecord::Migration
 
 	  create_table "money", :force => true do |t|
 	    t.integer  "user_id"
-	    t.string   "amount"
+	    t.integer   "amount"
 	    t.datetime "created_at",  :null => false
 	    t.datetime "updated_at",  :null => false
 	    t.integer  "adopter_id"

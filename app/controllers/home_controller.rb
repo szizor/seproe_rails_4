@@ -3,17 +3,15 @@ class HomeController < ApplicationController
 
   def index
     if current_user.present?
-      if current_user.adoptant?
-        redirect_to home_adoptant_index_path
-      elsif current_user.super_admin?
-        redirect_to home_super_admin_index_path
+      if current_user.admin?
+        redirect_to admin_home_path
         return
-      elsif current_user.admin?
-        redirect_to home_admin_index_path
+      elsif current_user.super_admin?
+        redirect_to super_admin_home_path
         return
       end
     end
-    #else guest
+    #else guest # or adoptant
     @publicSpaces = Listing.all_listings
   	@user = User.new
     @listings = Listing.paginate(:page => params[:page], :per_page => 21).order('name ASC')

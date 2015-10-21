@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class SuperAdmin::UsersController < ApplicationController
 
 before_action :set_user, only: [:edit, :update, :destroy]
 

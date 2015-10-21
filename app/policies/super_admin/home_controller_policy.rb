@@ -1,4 +1,4 @@
-class HomeAdminControllerPolicy
+class SuperAdmin::HomeControllerPolicy
   attr_reader :current_user, :model
 
   def initialize(current_user, target)
@@ -7,7 +7,7 @@ class HomeAdminControllerPolicy
   end
 
   def index?
-    @current_user.present? && @current_user.admin?
+    @current_user.present? && @current_user.super_admin?
   end
 
 end

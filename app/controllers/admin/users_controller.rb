@@ -2,12 +2,10 @@
 class Admin::UsersController < Admin::BaseController
   before_filter :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  layout "admin"
+  #layout "admin"
 
   def index
-    # User.all(:include => :roles, :conditions => ["roles.id = 3 OR username like '%#{params[:usuario]}%'"])
     @users = User.where("username like '%#{params[:usuario]}%'").paginate(:page => params[:page])
-    # @users = User.page(params[:page])
   end
 
   def new
@@ -16,6 +14,7 @@ class Admin::UsersController < Admin::BaseController
 
   def create
     @user = User.new(user_params)
+    @user.account_id = current_user.account_id
     if @user.save
       session[:user_id] = @user.id
       redirect_to admin_users_url, :notice => "Usuario creado con exito"
@@ -88,7 +87,7 @@ class Admin::UsersController < Admin::BaseController
     end
 
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation, :remember_me, :username, :name, :role_ids, :status, :adopter_attributes)
+      params.require(:user).permit(:email, :password, :password_confirmation, :remember_me, :username, :role_id, :adopter_attributes)
     end
 
 end

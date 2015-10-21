@@ -7,6 +7,10 @@
 		  </title>
 		  <%= stylesheet_link_tag    'application'%>
 		  <%= javascript_include_tag 'application'%>
+		  <% if current_user.present? && current_user.admin? %>
+		    <%= stylesheet_link_tag "admin_area" %>
+		    <%= javascript_include_tag :admin_area %>
+		  <% end %>
 		  <%= csrf_meta_tags %>
 		  <%= favicon_link_tag 'favicon.ico' %>
 		  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.13&key=AIzaSyAhVRsRgzm2XOrogNN8cKTjiEeNal9H_y0&sensor=true&language=es">
@@ -34,10 +38,8 @@
 			</div>
 		<%end%>
 
-		<% if !user_signed_in? %>
+		<% if !user_signed_in? || current_user.adoptant? %>
 			<%= render "shared/guest"%>
-		<% elsif current_user.adoptant? %>
-			<%= render "shared/templates/adoptant/layout"%>
 		<% elsif current_user.admin? %>
 			<%= render "shared/templates/admin/layout"%>
 		<% elsif current_user.super_admin? %>

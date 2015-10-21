@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for?(:title) ? yield(:title) : "SEPROE" %></title>
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+
+    <!-- custom fonts -->
+    <%= stylesheet_link_tag "admin_area" %>
+    <%= javascript_include_tag :admin_area %>
+    <%= csrf_meta_tag %>
+    <%= yield(:head) %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>

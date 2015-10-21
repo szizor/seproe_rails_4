@@ -16,12 +16,14 @@
  *= require admin/linecons
  *= require admin/nv.d3.min
  *= require admin/style
- *= require admin/theme/color_1
+ *= require bootstrap-material-design
+ *= require jasny-bootstrap.min
  */
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css';
+@import "font-awesome";
+
 .graph__effective-adoption {
   margin: 17px auto
 }

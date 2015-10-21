@@ -1,8 +1,8 @@
 <div class="col-xs-12">
-  <%= form_for @user, :html => { :class => "form-horizontal user-form" }  do |f| %>
+  <%= form_for [:super_admin, @user], :html => { :class => "form-horizontal user-form" }  do |f| %>
 
   <div class="panel panel-default">
-    <div class="panel-heading">
+    <div class="panel-heading text-center">
       Información General
     </div>
 
@@ -82,19 +82,17 @@
         </div>
       </div>
 
-      <div class="col-xs-12 text-right">
-
-        <%= link_to ' Cancelar  ', (request.referrer || users_path), class: "btn btn-danger" %>      
-
-        <%= f.submit "Guardar", class: "btn btn-add" %>
-
-      </div>
-
+    </div>
   </div>
 
-  <% end %>
+  <div class="col-xs-12 text-right">
+    <%= link_to ' Cancelar  ', (request.referrer || users_path), class: "btn btn-danger" %>      
+    <%= f.submit "Guardar", class: "btn btn-success" %>
+  </div>
 
-</div>
+<% end %>
+
+
 </div>
 
 
