@@ -15,7 +15,7 @@ class HomeController < ApplicationController
       end
     end
     #else guest # or adoptant
-    @publicSpaces = Listing.all_listings
+    @publicSpaces = Listing.all_listings request.subdomain
   	@user = User.new
     @listings = Listing.paginate(:page => params[:page], :per_page => 21).order('name ASC')
     @sidebar_listings = Listing.order('name ASC').all

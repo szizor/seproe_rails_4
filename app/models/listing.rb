@@ -1,6 +1,7 @@
 class Listing < ActiveRecord::Base
   belongs_to :listing_type
   belongs_to :adopter
+  belongs_to :account
   has_many :adoption_requests
   has_many :events
   has_many :images
@@ -46,12 +47,12 @@ class Listing < ActiveRecord::Base
       where(created_at: from..to, listing_type_id: 2).group('date(created_at)').count
     end
 
-    def all_listings
+    def all_listings subdomain
       all_listings =
       {
         "type" => "FeatureCollection",
         "features" =>
-          Listing.order('created_at DESC').all.map do |u|
+          Listing.joins(:account).where('accounts.subdomain = ?',subdomain).order('created_at DESC').all.map do |u|
             {
               "type" => "Feature",
               "properties" => {
