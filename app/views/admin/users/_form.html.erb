@@ -44,7 +44,7 @@
               <div class="row">
                 <div class="col-sm-6">
                   <%= f.label :role, "Role", class: "req" %>
-                  <%= select(:user, :role_id,  Role.order(name: :asc).collect {|p| [ p.name, p.id ] }, { include_blank: false}, class: "form-control RolePicker", id: "inputRole")%> 
+                  <%= select(:user, :role_id,  Role.local_roles.order(name: :asc).collect {|p| [ p.name, p.id ] }, { include_blank: false}, class: "form-control RolePicker", id: "inputRole")%> 
               </div>
             </div>
           </div>

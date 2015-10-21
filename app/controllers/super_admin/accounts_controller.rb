@@ -48,7 +48,7 @@ class SuperAdmin::AccountsController < ApplicationController
     p account_params
     respond_to do |format|
       if @account.update(account_params)
-        format.html { redirect_to @account, notice: 'Account was successfully updated.' }
+        format.html { redirect_to super_admin_accounts_path, notice: 'Account was successfully updated.' }
         format.json { render :show, status: :ok, location: @account }
       else
         format.html { render :edit }

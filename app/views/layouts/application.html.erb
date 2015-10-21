@@ -38,7 +38,9 @@
 			</div>
 		<%end%>
 
-		<% if !user_signed_in? || current_user.adoptant? %>
+		<% if @spaces.present? %>
+			<%= render "shared/templates/root/layout"%>
+		<% elsif !user_signed_in? || current_user.adoptant? %>
 			<%= render "shared/guest"%>
 		<% elsif current_user.admin? %>
 			<%= render "shared/templates/admin/layout"%>

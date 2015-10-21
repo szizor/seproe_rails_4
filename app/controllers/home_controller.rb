@@ -2,6 +2,9 @@ class HomeController < ApplicationController
   # before_action :set_home, only: [:show, :edit, :update, :destroy]
 
   def index
+    if request.host.split(".").count<3 && !user_signed_in?
+      redirect_to spaces_directory_index_path
+    end    
     if current_user.present?
       if current_user.admin?
         redirect_to admin_home_path

@@ -1,8 +1,6 @@
 # encoding: utf-8
 class Admin::UsersController < Admin::BaseController
-  before_filter :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  #layout "admin"
 
   def index
     @users = User.where("username like '%#{params[:usuario]}%'").paginate(:page => params[:page])
@@ -41,17 +39,17 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def destroy
-    if @user.id == 1
-      respond_to do |format|
-        format.html { redirect_to admin_users_url, :notice => "No Puede eliminar al Administrador" }
-        format.json { head :no_content }
-      end
-    else
-      if @user.role? :adoptante
+    #if @user.id == 1
+    #  respond_to do |format|
+    #    format.html { redirect_to admin_users_url, :notice => "No Puede eliminar al Administrador" }
+    #    format.json { head :no_content }
+    #  end
+    #else
+      if @user.adoptant?
         @user.adopter.listings.each do |listing|
           listing.update_attribute(:adopter_id, nil)
         end if @user.adopter
-      elsif @user.role? :Administrador
+      elsif @user.admin?
         @user.questions.each do |question|
           question.update_attribute(:user_id, User.first.id)
         end
@@ -77,7 +75,7 @@ class Admin::UsersController < Admin::BaseController
         format.html { redirect_to admin_users_url, :notice => "Usuario eliminado" }
         format.json { head :no_content }
       end
-    end
+    #end
   end
 
   private

@@ -1,0 +1,19 @@
+<div class="container">
+	<br/>
+	<table class="table table-hover ">
+	    <thead>
+	        <tr class="warning">
+	            <th>Nombre</th>
+	            <th>URL</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	    	<% @spaces.each do |s|%>
+	        <tr class="info">
+	            <td><%= s.name %></td>
+	            <td><%= link_to s.subdomain, "http://"+s.subdomain+'.'+@domain+":"+@port %></td>
+	        </tr>
+	        <% end %>
+	    </tbody>
+	</table>
+</div>

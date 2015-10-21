@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-acount = Account.create!(name: "Ejemplo 1", subdomain: "ejemplo")
+account = Account.create!(name: "Ejemplo 1", subdomain: "ejemplo")
 
 super_admin = Role.create!(name: "Super Administrador")
 admin     = Role.create!(name: "Administrador")
@@ -8,8 +8,8 @@ adoptant  = Role.create!(name: "Adoptante")
 
 User.create! email: "administrador@compartiendo.com", password: "Compartiendo2015", role_id: super_admin.id
 
-User.create! email: "administrador@ejemplo.com", password: "Compartiendo2015", role_id: admin.id, account_id:  acount.id
-User.create! email: "adoptante@ejemplo.com",     password: "Compartiendo2015", role_id: adoptant.id, account_id:  acount.id
+User.create! email: "administrador@ejemplo.com", password: "Compartiendo2015", role_id: admin.id, account_id:  account.id
+User.create! email: "adoptante@ejemplo.com",     password: "Compartiendo2015", role_id: adoptant.id, account_id:  account.id
 
 
 if ListingType.all.length != 3
@@ -31,7 +31,8 @@ if Listing.count == 0
       postal: 44260,
       description: 'Yr McSweeney Terry Richardson, Marfa tempor gastropub retro delectus Shoreditch cray narwhal enim next level. Reprehenderit bicycle rights VHS, keffiyeh non cred typewriter elit yr farm-to-table Banksy.',
       slug: 'paseo-de-chapultepec',
-      category: "camellones y parques"
+      category: "camellones y parques",
+      account_id: account.id
     },
     {
       name: 'Paseo de la Arboleda',
@@ -45,7 +46,8 @@ if Listing.count == 0
       postal: 44100,
       description: 'Yr McSweeney Terry Richardson, Marfa tempor gastropub retro delectus Shoreditch cray narwhal enim next level. Reprehenderit bicycle rights VHS, keffiyeh non cred typewriter elit yr farm-to-table Banksy.',
       slug: 'paseo-de-la-arboleda',
-      category: "camellones y parques"
+      category: "camellones y parques",
+      account_id: account.id
     },
     {
       name: 'Centro Histórico',
@@ -59,7 +61,8 @@ if Listing.count == 0
       postal: 44100,
       description: 'Yr McSweeney Terry Richardson, Marfa tempor gastropub retro delectus Shoreditch cray narwhal enim next level. Reprehenderit bicycle rights VHS, keffiyeh non cred typewriter elit yr farm-to-table Banksy.',
       slug: 'centro-historico',
-      category: "plazas publicas"
+      category: "plazas publicas",
+      account_id: account.id
     }
   ].each do |listing|
     puts Listing.create(listing)
