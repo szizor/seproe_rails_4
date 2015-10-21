@@ -7,7 +7,7 @@ class ListingsController < ApplicationController
   	@listing = Listing.friendly.find params[:listing_name]
     @events = @listing.events.order('start_date DESC')
     @money = @listing.money.order('spent_date DESC')
-    @money_js =  Money.find_by_sql("SELECT date(spent_date) as date, sum(amount) as total FROM money WHERE listing_id = #{@listing.id} GROUP BY MONTH(spent_date)")
+    @money_js =  Money.find_by_sql("SELECT date(spent_date) as date, sum(amount) as total FROM money WHERE listing_id = #{@listing.id} GROUP BY EXTRACT(MONTH FROM spent_date),spent_date ")
 
   end
 

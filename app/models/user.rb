@@ -32,9 +32,10 @@ class User < ActiveRecord::Base
   #validates_uniqueness_of :username
   #after_create :add_role#, :send_confirmation
 
-  validates :account_id, presence: true, if: Proc.new{ |u| !u.super_admin?}
+  #validates :account_id, presence: true, if: Proc.new{ |u| !u.super_admin?}
 
   validates_presence_of   :email, if: :email_required?
+  validates_uniqueness_of :email
   validates_format_of     :email, with: Devise.email_regexp, allow_blank: true, if: :email_changed?
 
   validates_presence_of     :password, if: :password_required?

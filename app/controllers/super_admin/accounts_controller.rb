@@ -15,6 +15,7 @@ class SuperAdmin::AccountsController < ApplicationController
   # GET /accounts/new
   def new
     @account = Account.new
+    @account.build_owner
   end
 
   # GET /accounts/1/edit
@@ -25,10 +26,10 @@ class SuperAdmin::AccountsController < ApplicationController
   # POST /accounts.json
   def create
     @account = Account.new(account_params)
-
+    @account.owner.role_id=Role.find_by_name("Administrador").id
     respond_to do |format|
       if @account.save
-        format.html { redirect_to @account, notice: 'Account was successfully created.' }
+        format.html { redirect_to super_admin_accounts_path, notice: 'Account was successfully created.' }
         format.json { render :show, status: :created, location: @account }
       else
         format.html { render :new }
@@ -40,6 +41,11 @@ class SuperAdmin::AccountsController < ApplicationController
   # PATCH/PUT /accounts/1
   # PATCH/PUT /accounts/1.json
   def update
+    if params[:account][:owner_attributes][:password].blank? 
+      params[:account][:owner_attributes].delete(:password)
+      params[:account][:owner_attributes].delete(:password_confirmation)
+    end
+    p account_params
     respond_to do |format|
       if @account.update(account_params)
         format.html { redirect_to @account, notice: 'Account was successfully updated.' }
@@ -69,6 +75,6 @@ class SuperAdmin::AccountsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def account_params
-      params.require(:account).permit(:name, :subdomain)
+      params.require(:account).permit(:name, :subdomain, :owner_attributes => [:email, :password, :password_confirmation, :id])
     end
 end

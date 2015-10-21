@@ -1,33 +1,46 @@
 <div class="container">
 
-  <div class="col-md-12 text-center title-bar-blue">
-    <h3>
-    	Usuarios
-    </h3>
-  </div>
 
-  <table class="table datatable display responsive no-wrap">
-  	<thead>
-  		<tr>
-  			<th> Email </th>
-  			<th> Role </th>
-  			<th> Municipio </th>
-  			<th> Acciones </th>
-  		</tr>
-  	</thead>
-  	<tbody>
-  		<% @users.each do |user| %>
-  			<tr>
-  				<td><%= user.email %></td>
-  				<td><%= user.role.name %></td>
-  				<td><%= user.display_account %></td>
-  				<td>
-  					<%= link_to " Editar ", edit_super_admin_user_path(user) %> 
-  					<%= link_to " Borrar ", super_admin_user_path(user), method: :delete, data: { confirm: "¿Está seguro que desea borrar el producto '#{user.email}'?" } %></td>
-  			</tr>
-  		<% end %>
-  	</tbody>
-  </table>		
+<div class="container">
+      <br/>
+      <div class="panel panel-default">
+
+        <div class="panel-heading text-center">
+          <h3>
+            Usuarios
+          </h3>
+        </div>
+
+        <div class="panel-body">
+
+          <table class="table datatable display responsive no-wrap">
+            <thead>
+              <tr>
+                <th> Email </th>
+                <th> Role </th>
+                <th> Municipio </th>
+                <th> Acciones </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @users.each do |user| %>
+                <tr>
+                  <td><%= user.email %></td>
+                  <td><%= user.role.name %></td>
+                  <td><%= user.display_account %></td>
+                  <td>
+                    <center>
+                      <%= link_to " Editar ", edit_super_admin_user_path(user) %> |
+                      <%= link_to " Borrar ", super_admin_user_path(user), method: :delete, data: { confirm: "¿Está seguro que desea borrar el usuario '#{user.email}'?" } %>
+                    </center>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>    
+
+        </div>
+      </div>
 
   <div class="col-md-12 text-right ">
   	<%= link_to "NUEVO",new_super_admin_user_path, class: "btn btn-primary" %>
