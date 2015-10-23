@@ -29,6 +29,14 @@
 .map-options .btn.active div.text-description{
 	text-decoration: underline;
 }
+.text-description{
+	font-size: 12px
+}
+.btn-footer{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	cursor: pointer
+}
 .btn-transparent {
  background-color: transparent;
 }
@@ -150,6 +158,9 @@
     width: 15px;
     height:15px;
 }
+.red{
+	color: #f26f6c;
+}
 .icon-red{
 	background-color: red;
 }
@@ -183,4 +194,36 @@
 }
 .grey{
 	color: #aaaaaa;
+}
+.strong-blue{
+		background-color: #252a32;
+}
+.white{
+	background-color: white
+}
+.font-white{
+	color: white;
+}
+.font-black{
+	color: black;
+}
+.margin-map-footer{
+	margin-bottom: 10px
+}
+.title-map-footer{
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+.divider-left{
+	border-right: 1px solid black;
+}
+.divider-middle{
+	border-right: 1px solid black;
+	border-left: 1px solid black;
+}
+.divider-right{
+	border-left: 1px solid-black
+}
+.btn-all.active{
+	background-color: #779a3e;
 }

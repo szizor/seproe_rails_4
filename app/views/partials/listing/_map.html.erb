@@ -4,109 +4,17 @@
     <div id="map-canvas" class="map-canvas"></div>
 
     <div class="floating-map-menu">
-        <div class="pull-left padding-show-buttom">
-          <%=link_to "#", :"data-toggle"=>"offcanvas", :"data-target"=>"#myNavmenu", :"data-canvas"=>"body" do%>
-            <span class="glyphicon glyphicon-align-justify black"></span>
-          <%end%>
-        </div>
-        <div class="pull-left">
-          <div class="form-control-wrapper">
-            <input type='text' name="search" class="form-control empty" placeholder="Buscar" />
-          </div>
-        </div>
-        <div class="pull-left padding-show-buttom">
-          <%=link_to "#" do%>
-            <span class="glyphicon glyphicon-search grey"></span>
-          <%end%>
-        </div>
-        <div class="pull-left divider">
-          |
-        </div>
-        <div class="pull-left padding-show-buttom">
-          <%=link_to "#" do%>
-            <span class="glyphicon glyphicon-th-large navy-blue"></span>
-          <%end%>          
-        </div>
-        <div class="pull-left padding-show-buttom">
-          <%=link_to "#" do%>
-            <span class="glyphicon glyphicon-map-marker navy-blue"></span>
-          <%end%>          
-        </div>
-        <div class="pull-left padding-show-buttom">
-          <%=link_to "#", class: "navy-blue" do%>
-            Satelital
-          <%end%>          
-        </div>
+        <%= render "partials/listing/map_menu_bar" %>
     </div>
 
-    <div class="map-options text-center">
-       <div class="btn-group no-margin-up-down" data-toggle="buttons">
-         <label class="btn btn-adopted active">
-               <input type="checkbox" checked name="todos"/> 
-               <div class="icon-all icon-white pull-left"></div>
-               <div class="hidden-xs hidden-sm pull-right text-description">Todos</div>
-         </label>
-         <label class="btn btn-free active">
-               <input type="checkbox" checked name="libre">
-               <div class="icon-free icon-white pull-left"></div>
-               <div class="hidden-xs hidden-sm pull-right text-description">Libre</div>
-         </label>
-         <label class="btn btn-adopted active">
-               <input type="checkbox" checked name="adoptado"/> 
-               <div class="icon-adopted icon-white pull-left"></div>
-               <div class="hidden-xs hidden-sm pull-right text-description">Adoptado</div>
-         </label>
-         <label class="btn btn-pending active">
-               <input type="checkbox" checked name="En Proceso">
-               <div class="icon-process icon-white pull-left"></div>
-               <div class="hidden-xs hidden-sm pull-right text-description">En Proceso</div>
-         </label>
-         <label class="btn btn-featured active">
-               <input type="checkbox" checked name="preferido">
-               <div class="icon-featured icon-white pull-left"></div>
-               <div class="hidden-xs hidden-sm pull-right text-description">Favorito</div>
-         </label>
-       </div>
+    <div class="map-options">
+        <%= render "partials/listing/map_footer_menu"%>
     </div>
 
   </div>
 
   <div class="infobox-wrapper">
-
-    <div class="info-content" itemscope itemtype="http://schema.org/Place" id="infobox">
-      
-      <div class="info-adopter">
-        <div class="row">
-          <div class="col-md-9">
-            <a href="" class="info-adopter__adoptor" target="_blank"><i class="fa fa-external-link"></i><span class="info-adoptor__adopter_company">Soriana</span></a>
-          </div>
-          <div class="col-md-3 text-right">
-            <a href="#" class="info-adopter__adopter_social info-adopter__adopter_facebook" target="_blank"><i class="fa fa-facebook"></i></a>
-            <a href="#" class="info-adopter__adopter_social info-adopter__adopter_twitter" target="_blank"><i class="fa fa-twitter"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="info-data">
-        <img src="http://placekitten.com/g/75/75" alt="" class="info-data_cover" width="75" height="75">
-        <a href="" class="info-data__name" itemprop="name">Paseo Chapultepec</a>
-        <p class="info-data__address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-          <span class="info-data__address_street" itemprop="streetAddress">Av. Chapultepec</span>
-          <span class="info-data__address_locality" itemprop="addressLocality">Guadalajara</span>
-          <span class="info-data__address_region" itemprop="addressRegion">JAL</span>
-          <span class="info-data__address_postal" itemprop="postalCode">44160</span>
-          <span class="info-data__address_gps" itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
-            <span class="info-data__address_gps_title">GPS:</span>
-            <span class="info-data__address_gps_coordinates">52.85630, -8.9594</span>
-            <meta itemprop="latitude" content="40.75" />
-            <meta itemprop="longitude" content="73.98" />
-          </span>
-        </p>
-        <div class="info-data__action text-center">
-          <a href="#" class="btn btn-xs btn-primary">Más información</a> <a href="/reportes/" class="btn btn-xs btn-link">Reportar</a>
-        </div>
-      </div>
-      
-    </div>
+        <%= render "/partials/listing/info_box"%>
   </div>
+
 </div>

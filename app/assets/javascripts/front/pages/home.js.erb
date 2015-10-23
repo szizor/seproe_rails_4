@@ -357,13 +357,23 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 var myMap = {
     init: function(){
-        console.log(map)
         var marker = new google.maps.Marker({
          position: map.getCenter(),
          map: map,
          draggable:true,
          title:"Drag me!"
         });
+        $('.visible-spaces .btn-footer').click(myMap.visible_spaces)
+    },
+    visible_spaces: function(){
+        console.log($(this).find('checkbox').is(":checked"))
+        if( $(this).find('checkbox').is(":checked") ){
+            $(this).find('checkbox').prop("checked",false)
+            $(this).removeClass("active")            
+        }else{
+            $(this).find('checkbox').prop("checked",true)
+            $(this).addClass("active")
+        }
     }
 }
 
