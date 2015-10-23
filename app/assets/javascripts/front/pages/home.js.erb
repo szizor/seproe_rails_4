@@ -325,6 +325,8 @@ function load_spaces(results) {
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
+
+
 (function($) {
 
     var $container = $('.content-listing'),
@@ -337,7 +339,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
         itemSelector: '.listing_item'
     });
 
-    $mapMaximizer.on('click', function (e) {
+    /*$mapMaximizer.on('click', function (e) {
       mapCanvas.toggleClass('minimized');
 
       if (mapCanvas.hasClass('minimized')) {
@@ -348,6 +350,25 @@ google.maps.event.addDomListener(window, 'load', initialize);
         $mapMaximizer.find('.fa').removeClass('fa-caret-down').addClass('fa-caret-up');
       }
       
-    });
+    });*/
 
 }(jQuery));
+
+
+var myMap = {
+    init: function(){
+        console.log(map)
+        var marker = new google.maps.Marker({
+         position: map.getCenter(),
+         map: map,
+         draggable:true,
+         title:"Drag me!"
+        });
+    }
+}
+
+google.maps.event.addDomListener(window, 'load', myMap.init);
+
+//$(document).ready(function(){
+//    myMap.init();
+//})

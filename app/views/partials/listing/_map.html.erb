@@ -1,30 +1,72 @@
 <div class="map-wrapper">
-  <div class="map-holder map-responsive-height">
+  <div class="map-holder">
 
     <div id="map-canvas" class="map-canvas"></div>
 
+    <div class="floating-map-menu">
+        <div class="pull-left padding-show-buttom">
+          <%=link_to "#", :"data-toggle"=>"offcanvas", :"data-target"=>"#myNavmenu", :"data-canvas"=>"body" do%>
+            <span class="glyphicon glyphicon-align-justify black"></span>
+          <%end%>
+        </div>
+        <div class="pull-left">
+          <div class="form-control-wrapper">
+            <input type='text' name="search" class="form-control empty" placeholder="Buscar" />
+          </div>
+        </div>
+        <div class="pull-left padding-show-buttom">
+          <%=link_to "#" do%>
+            <span class="glyphicon glyphicon-search grey"></span>
+          <%end%>
+        </div>
+        <div class="pull-left divider">
+          |
+        </div>
+        <div class="pull-left padding-show-buttom">
+          <%=link_to "#" do%>
+            <span class="glyphicon glyphicon-th-large navy-blue"></span>
+          <%end%>          
+        </div>
+        <div class="pull-left padding-show-buttom">
+          <%=link_to "#" do%>
+            <span class="glyphicon glyphicon-map-marker navy-blue"></span>
+          <%end%>          
+        </div>
+        <div class="pull-left padding-show-buttom">
+          <%=link_to "#", class: "navy-blue" do%>
+            Satelital
+          <%end%>          
+        </div>
+    </div>
+
     <div class="map-options text-center">
-
-      <div class="btn-group" data-toggle="buttons">
-
-        <label class="btn btn-adopted active">
-          <input type="checkbox" checked name="adoptado"> <i class="glyphicon glyphicon-stop"></i>Adoptado
-        </label>
-
-        <label class="btn btn-free active">
-          <input type="checkbox" checked name="libre"> <i class="glyphicon glyphicon-stop"></i>Libre
-        </label>
-
-        <label class="btn btn-pending active">
-          <input type="checkbox" checked name="En Proceso"> <i class="glyphicon glyphicon-stop"></i>En Proceso
-        </label>
-
-        <label class="btn btn-featured active">
-          <input type="checkbox" checked name="preferido"> <i class="glyphicon glyphicon-star"></i>Preferido
-        </label>
-
-      </div>
-
+       <div class="btn-group no-margin-up-down" data-toggle="buttons">
+         <label class="btn btn-adopted active">
+               <input type="checkbox" checked name="todos"/> 
+               <div class="icon-all icon-white pull-left"></div>
+               <div class="hidden-xs hidden-sm pull-right text-description">Todos</div>
+         </label>
+         <label class="btn btn-free active">
+               <input type="checkbox" checked name="libre">
+               <div class="icon-free icon-white pull-left"></div>
+               <div class="hidden-xs hidden-sm pull-right text-description">Libre</div>
+         </label>
+         <label class="btn btn-adopted active">
+               <input type="checkbox" checked name="adoptado"/> 
+               <div class="icon-adopted icon-white pull-left"></div>
+               <div class="hidden-xs hidden-sm pull-right text-description">Adoptado</div>
+         </label>
+         <label class="btn btn-pending active">
+               <input type="checkbox" checked name="En Proceso">
+               <div class="icon-process icon-white pull-left"></div>
+               <div class="hidden-xs hidden-sm pull-right text-description">En Proceso</div>
+         </label>
+         <label class="btn btn-featured active">
+               <input type="checkbox" checked name="preferido">
+               <div class="icon-featured icon-white pull-left"></div>
+               <div class="hidden-xs hidden-sm pull-right text-description">Favorito</div>
+         </label>
+       </div>
     </div>
 
   </div>

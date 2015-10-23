@@ -26,27 +26,7 @@
 	font-size: 12px;
 	font-style: normal;
 }
-.map-options .btn-group .glyphicon {
-	font-size: 18px;
-	vertical-align: middle;
-	margin-top: -5px;
-	margin-right: 5px;
-}
-
-.btn-adopted .glyphicon {
-	color: #00BACC;
-}
-.btn-free .glyphicon {
-	color: #4DAF7C;
-}
-
-.btn-pending .glyphicon {
-	color: #EDCD5B;
-}
-.btn-featured .glyphicon {
-	color: #ffffff;
-}
-.map-options .btn.active {
+.map-options .btn.active div.text-description{
 	text-decoration: underline;
 }
 .btn-transparent {
@@ -129,15 +109,78 @@
 .info-adopter__adoptor {}
 .info-adopter__adopter_facebook {}
 .info-adopter__adopter_facebook {}
-.map-wrapper{
-    position:relative;
-    width:100%;
-    padding-bottom:44%;
-    height:0;
-    overflow:hidden;	
+
+.icon-all{
+    -webkit-mask-image: url(/assets/ic_filter_tilt_shift_black_24px.svg);
+    mask-image: url(/assets/ic_filter_tilt_shift_black_24px.svg);
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    width: 15px;
+    height:15px;
 }
-.map-responsive-height{
-   position:absolute;
-    width:100%;
-    height:100%;	
+.icon-adopted{
+    -webkit-mask-image: url(/assets/sun.svg);
+    mask-image: url(/assets/sun.svg);
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    width: 15px;
+    height:15px;
+}
+.icon-free{
+    -webkit-mask-image: url(/assets/ic_accessibility_black_24px.svg);
+    mask-image: url(/assets/ic_filter_tilt_shift_black_24px.svg);
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    width: 15px;
+    height:15px;
+}
+.icon-process{
+    -webkit-mask-image: url(/assets/ic_rotate_right_black_24px.svg	);
+    mask-image: url(/assets/ic_rotate_right_black_24px.svg	);
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    width: 15px;
+    height:15px;
+}
+.icon-featured{
+    -webkit-mask-image: url(/assets/heart.svg);
+    mask-image: url(/assets/heart.svg);
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    width: 15px;
+    height:15px;
+}
+.icon-red{
+	background-color: red;
+}
+.icon-white{
+	background-color: white;
+}
+.no-margin-up-down{
+	margin-top: 0 !important;
+}
+.floating-map-menu{
+	background-color: white;
+	position: absolute;
+	left: 35px;
+	top: 50px;
+	width: 360px
+}
+.padding-show-buttom{
+	padding-top: 10px;
+	padding-right:10px;
+	padding-left: 10px
+}
+.black{
+	color: black !important;
+}
+.divider{
+	font-size: 25px;
+	color: #aaaaaa;
+}
+.navy-blue{
+	color: #7298cf !important;
+}
+.grey{
+	color: #aaaaaa;
 }
