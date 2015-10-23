@@ -366,13 +366,23 @@ var myMap = {
         $('.visible-spaces .btn-footer').click(myMap.visible_spaces)
     },
     visible_spaces: function(){
-        console.log($(this).find('checkbox').is(":checked"))
-        if( $(this).find('checkbox').is(":checked") ){
-            $(this).find('checkbox').prop("checked",false)
-            $(this).removeClass("active")            
+
+        if( $(this).data('action') == null){
+            if( $(this).find('input[type="checkbox"]').is(":checked") ){
+                $(this).find('input[type="checkbox"]').prop("checked",false)
+                $(this).removeClass("active")
+            }else{
+                console.log("set to true and add class")
+                $(this).find('input[type="checkbox"]').prop("checked",true)
+                $(this).addClass("active")
+            }
+            $(this).find('input[type="checkbox"]').trigger('change')
         }else{
-            $(this).find('checkbox').prop("checked",true)
-            $(this).addClass("active")
+            $('.btn-spaces.btn-footer').each(function(){
+                $(this).find('input[type="checkbox"]').prop("checked",true)
+                $(this).addClass("active")   
+                $(this).find('input[type="checkbox"]').trigger('change')
+            });
         }
     }
 }

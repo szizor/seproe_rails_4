@@ -35,7 +35,8 @@
 .btn-footer{
 	padding-top: 10px;
 	padding-bottom: 10px;
-	cursor: pointer
+	cursor: pointer;
+	min-height: 40px;
 }
 .btn-transparent {
  background-color: transparent;
@@ -224,6 +225,36 @@
 .divider-right{
 	border-left: 1px solid-black
 }
-.btn-all.active{
+.btn-free.active{
 	background-color: #779a3e;
+}
+.btn-adopted.active{
+	background-color: #0a5c78;
+}
+.btn-process.active{
+	background-color: #b971af;
+}
+.btn-featured.active{
+	background-color: #f28e3d;
+}
+.no-side-padding{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.hidden-section{
+	background-color: #edeeef
+}
+.icon-calendar{
+    -webkit-mask-image: url(/assets/ic_insert_invitation_black_24px.svg);
+    mask-image: url(/assets/ic_insert_invitation_black_24px.svg);
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    width: 15px;
+    height:15px;
+}
+.icon-black{
+	background-color: black
+}
+.right-hidden-border{
+	border-right: 1px solid black;
 }
