@@ -1,95 +1,78 @@
 <div class="col-xs-10 col-xs-offset-1 text-center  white font-black font-footer-title">
-	<div class="col-xs-10 title-map-footer text-center">
-		Espacio Publicos
-	</div>
-	<div class="col-xs-1 divider-middle title-map-footer text-center">
-		Reportes
-	</div>
-	<div class="col-xs-1 title-map-footer text-center">
-		Eventos
-	</div>
+		<div class="col-xs-10 title-map-footer text-center">
+			<span class="hidden-xs hidden-sm">Espacio Publicos</span>
+			<span class="visible-xs visible-sm">
+				<span class="glyphicon glyphicon-plus-sign"></span>
+			</span>
+		</div>
+		<div class="col-xs-1 divider-middle title-map-footer text-center">
+			<span class="hidden-xs hidden-sm">Reportes</span>
+			<span class="visible-xs visible-sm">
+				<span class="glyphicon glyphicon-exclamation-sign red"></span>
+			</span>
+		</div>
+		<div class="col-xs-1 title-map-footer text-center">
+			<span class="hidden-xs hidden-sm">Eventos</span>
+			<span class="visible-xs visible-sm">
+				<img class="icon-calendar icon-black" />
+			</span>
+
+		</div>
 </div>
 <div class="visible-spaces col-xs-10 col-xs-offset-1 strong-blue margin-map-footer font-white">
-	<div class="col-xs-10">
-		<div class="col-xs-2 col-xs-offset-1 no-side-padding">
+		<div class="col-xs-10">
+			<div class="col-xs-2 col-xs-offset-1 no-side-padding">
 
-			<div class="btn-footer btn-all text-description text-center" data-action="showAll">
-		        <img class="icon-all icon-white" />
-		        Todos
-		    </div>
+				<div class="btn-footer btn-all text-description text-center" data-action="showAll">
+			        <img class="icon-all icon-white" />
+			        <span class="hidden-xs hidden-sm">Todos</span>
+			    </div>
 
+			</div>
+			<div class="col-xs-2 no-side-padding">
+
+				<div class="btn-footer btn-spaces btn-free active text-description text-center">
+			        <input type="checkbox" checked name="libre" class= "hidden" />
+			        <img class="icon-free icon-white" />
+			         <span class="hidden-xs hidden-sm">Libre</span>
+		        </div>
+
+			</div>
+			<div class="col-xs-2 no-side-padding">
+
+				<div class="btn-footer btn-spaces btn-adopted active text-description text-center">
+			        <input type="checkbox" checked name="adoptado"  class= "hidden" /> 
+			        <img class="icon-adopted icon-white " />
+			        <span class="hidden-xs hidden-sm">Adoptado</span>
+			    </div>
+
+			</div>
+			<div class="col-xs-2 no-side-padding">
+
+				<div class="btn-footer btn-spaces btn-process active text-description text-center">
+					<input type="checkbox" checked name="En Proceso" class= "hidden" />
+			        <img class="icon-process icon-white " />
+			        <span class="hidden-xs hidden-sm">Proceso</span>
+			    </div>
+			</div>
+			<div class="col-xs-2 no-side-padding">
+
+				<div class=" btn-footer btn-spaces btn-featured active text-description text-center">
+				    <input type="checkbox" checked name="preferido"  class= "hidden"  />
+			        <img class="icon-featured icon-white" />
+			        <span class="hidden-xs hidden-sm">Favorito</span>
+			    </div>
+
+			</div>
 		</div>
-		<div class="col-xs-2 no-side-padding">
-
-			<div class="btn-footer btn-spaces btn-free active text-description text-center">
-		        <input type="checkbox" checked name="libre" class= "hidden" />
-		        <img class="icon-free icon-white" />
-		         Libre 
-	        </div>
-
+		<div class="col-xs-1 no-side-padding text-center">
+			<div class="btn-footer hidden-section right-hidden-border">
+				<span class="glyphicon glyphicon-exclamation-sign red hidden-xs hidden-sm"></span>
+			</div>
 		</div>
-		<div class="col-xs-2 no-side-padding">
-
-			<div class="btn-footer btn-spaces btn-adopted active text-description text-center">
-		        <input type="checkbox" checked name="adoptado"  class= "hidden" /> 
-		        <img class="icon-adopted icon-white " />
-		        Adoptado
-		    </div>
-
+		<div class="col-xs-1 no-side-padding text-center">
+			<div class="btn-footer hidden-section">
+				<img class="icon-calendar icon-black hidden-xs hidden-sm" />
+			</div>
 		</div>
-		<div class="col-xs-2 no-side-padding">
-
-			<div class="btn-footer btn-spaces btn-process active text-description text-center">
-				<input type="checkbox" checked name="En Proceso" class= "hidden" />
-		        <img class="icon-process icon-white " />
-		        Proceso
-		    </div>
-		</div>
-		<div class="col-xs-2 no-side-padding">
-
-			<div class=" btn-footer btn-spaces btn-featured active text-description text-center">
-			    <input type="checkbox" checked name="preferido"  class= "hidden"  />
-		        <img class="icon-featured icon-white" />
-		        Favorito
-		    </div>
-
-		</div>
-	</div>
-	<div class="col-xs-1 no-side-padding text-center">
-		<div class="btn-footer hidden-section right-hidden-border">
-			<span class="glyphicon glyphicon-exclamation-sign red"></span>
-		</div>
-	</div>
-	<div class="col-xs-1 no-side-padding text-center">
-		<div class="btn-footer hidden-section">
-			<img class="icon-calendar icon-black" />
-		</div>
-	</div>
 </div>
-<!--<div class="btn-group no-margin-up-down" data-toggle="buttons">
-  <label class="btn btn-adopted active">
-        <input type="checkbox" checked name="todos"/> 
-        <div class="icon-all icon-white pull-left"></div>
-        <div class="hidden-xs hidden-sm pull-right text-description">Todos</div>
-  </label>
-  <label class="btn btn-free active">
-        <input type="checkbox" checked name="libre">
-        <div class="icon-free icon-white pull-left"></div>
-        <div class="hidden-xs hidden-sm pull-right text-description">Libre</div>
-  </label>
-  <label class="btn btn-adopted active">
-        <input type="checkbox" checked name="adoptado"/> 
-        <div class="icon-adopted icon-white pull-left"></div>
-        <div class="hidden-xs hidden-sm pull-right text-description">Adoptado</div>
-  </label>
-  <label class="btn btn-pending active">
-        <input type="checkbox" checked name="En Proceso">
-        <div class="icon-process icon-white pull-left"></div>
-        <div class="hidden-xs hidden-sm pull-right text-description">En Proceso</div>
-  </label>
-  <label class="btn btn-featured active">
-        <input type="checkbox" checked name="preferido">
-        <div class="icon-featured icon-white pull-left"></div>
-        <div class="hidden-xs hidden-sm pull-right text-description">Favorito</div>
-  </label>
-</div>-->
