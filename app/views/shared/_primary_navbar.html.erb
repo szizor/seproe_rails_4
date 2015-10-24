@@ -5,15 +5,11 @@
         <a class="navbar-brand" href="/">Compartiendo Espacios</a>
       </div>
 
-
-        <ul class="nav navbar-nav navbar-right">
-
           <% if !user_signed_in? %>
             <%= render "shared/primary_guest"%>
           <% elsif current_user.adoptant? %>
             <%= render "shared/primary_adoptant"%>
           <% end %>
-        </ul>
       
   </div>
 

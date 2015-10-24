@@ -1,37 +1,65 @@
-<li>
-  <a href="" class="font-slg padding-sm-sides padding-bottom-zero">
-   <span class="glyphicon glyphicon-plus-sign"></span>
-  </a>
-</li>          
-<li>
-  <a href="" class="font-slg padding-sm-sides padding-bottom-zero">
-   <span class="glyphicon glyphicon-exclamation-sign"></span>
-  </a>
-</li>          
-<li>
-  <a href="" class="font-slg padding-sm-sides padding-bottom-zero">
-   <span class="glyphicon glyphicon-calendar"></span>
-  </a>
-</li>          
-<li class="font-slg padding-navbar">
-    |
-</li>
-<li>
-  <a href="" class="font-lg padding-bottom-zero padding-xm-sides">
-   <span class="glyphicon glyphicon-calendar"></span>
-  </a>
-</li>
-<li>
-  <a href="" class="font-lg padding-bottom-zero padding-xm-sides">
-   <span class="glyphicon glyphicon-bell"></span>
-  </a>
-</li>
-<li>
-  <a href="#" class="margin-top-sm padding-top-zero padding-bottom-zero">
-   <span class="mdi-action-face-unlock"></span>
-   &nbsp;&nbsp;
-   <span class="btn btn-success padding-sm-sides font-navbar-btn" data-toggle="modal" data-target="#signInModal">
-      ENTRAR / REGISTRARSE
-   </span>
-  </a>
-</li>
+<ul class="nav navbar-nav navbar-right">
+
+  <li>
+    <a href="" class="font-slg padding-sm-sides padding-bottom-zero">
+     <span class="glyphicon glyphicon-plus-sign"></span>
+    </a>
+  </li>          
+
+  <li>
+    <a href="" class="font-slg padding-sm-sides padding-bottom-zero">
+     <span class="glyphicon glyphicon-exclamation-sign"></span>
+    </a>
+  </li>          
+
+  <li>
+    <a href="" class="font-slg padding-sm-sides padding-bottom-zero">
+     <span class="glyphicon glyphicon-calendar"></span>
+    </a>
+  </li>          
+
+  <li class="font-slg padding-navbar">
+      |
+  </li>
+
+  <li>
+    <a href="" class="font-lg padding-bottom-zero padding-xm-sides">
+     <span class="glyphicon glyphicon-calendar"></span>
+    </a>
+  </li>
+
+  <li>
+    <a href="" class="font-lg padding-bottom-zero padding-xm-sides">
+     <span class="glyphicon glyphicon-bell"></span>
+    </a>
+  </li>
+
+  <li class="padding-xm-sides">
+    <a href="#" class="margin-top-sm padding-top-zero padding-bottom-zero padding-xm-sides"  data-toggle="modal" data-target="#signInModal">
+     <%= image_tag "0226-smile-green.png", class: "smile-size" %>
+     <span class="btn btn-success padding-botton-user padding-sm-sides font-navbar-btn hidden-xs hidden-sm">
+        <%= current_user.email%>
+     </span>
+    </a>
+  </li>
+
+  <li class="dropdown padding-xm-sides">
+    <a href="#" class="dropdown-toggle padding-xm-sides" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="<%= destroy_user_session_path %>">
+          Editar Perfil
+        </a>
+      </li>
+      <li role="separator" class="divider"></li>
+      <li>
+        <a href="<%= destroy_user_session_path %>">
+          Salir
+        </a>
+      </li>
+    </ul>
+  </li>  
+
+</ul>
