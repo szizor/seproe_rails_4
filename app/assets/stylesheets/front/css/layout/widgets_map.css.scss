@@ -1,13 +1,13 @@
 .map-holder {
 	position: relative;
 }
-@media(max-width: 767px){
+/*@media(max-width: 767px){
 	.map-canvas {
 		height: 500px !important;
 	}
-}
+}*/
 .map-canvas {
-	height: 570px;
+	/*height: 570px;*/
 	  -webkit-transition: all 0.3s ease-out;
      -moz-transition: all 0.3s ease-out;
        -o-transition: all 0.3s ease-out;

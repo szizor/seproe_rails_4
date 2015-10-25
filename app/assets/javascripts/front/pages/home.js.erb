@@ -364,6 +364,13 @@ var myMap = {
          title:"Drag me!"
         });
         $('.visible-spaces .btn-footer').click(myMap.visible_spaces)
+        $(window).on('resize', myMap.resizer).trigger('resize');
+    },
+    resizer: function(){
+        $navbar        =  $('.navbar-obscure')
+        $map_container = $('.map-canvas')
+        var height = $(this).height() - $navbar.height() ;
+        $map_container.height(height);
     },
     visible_spaces: function(){
 
