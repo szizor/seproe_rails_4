@@ -14,7 +14,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 
-gem 'devise'
+gem "devise", ">= 4.7.1"
 gem "pundit"
 gem 'rails-i18n'
 gem 'devise-i18n'
@@ -35,6 +35,9 @@ gem "will_paginate"
 gem "geocoder"
 gem 'rails_12factor', group: :production
 gem "font-awesome-rails"
+gem "actionview", ">= 4.2.11.1"
+gem "nokogiri", ">= 1.10.8"
+gem "actionpack", ">= 4.2.5.2"
 
 
 group :development, :test do
