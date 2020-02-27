@@ -25,6 +25,7 @@ gem 'jasny-bootstrap-rails', '~> 3.1.3'
 
 gem 'omniauth-twitter', '1.0.1'
 gem 'omniauth-facebook', '1.4.1'
+gem "omniauth", ">= 1.3.2"
 
 gem "carrierwave"
 gem "rmagick"
